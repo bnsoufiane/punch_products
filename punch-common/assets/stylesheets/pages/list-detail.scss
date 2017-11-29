@@ -1,0 +1,24 @@
+@import '../kit/_variables.scss';
+
+.companies-wrap {
+  .companies-table {
+    table td {
+      padding-top: 2px;
+      padding-bottom: 3px;
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        -webkit-appearance: checkbox;
+        -moz-appearance: checkbox;
+        appearance: checkbox;
+      }
+    }
+    th, td {
+      &:first-child {
+        width: 50px;
+        padding-left: 17px;
+
+      }
+    }
+  }
+}

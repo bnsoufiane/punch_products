@@ -1,0 +1,31 @@
+<div class="modal-wrp" [class.hidden]="!showModal" (click)="cancelAction()">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block work-modal" (click)="$event.stopPropagation()">
+    <div class="modal-body-content">
+      <div class="row list-controls">
+        <div class="right-side col-sm-12">
+          <ar-list-search (queryChanged)="query = $event"></ar-list-search>
+        </div>
+      </div>
+      <div class="elements-grid">
+        <ul>
+          <li *ngFor="#sample of portfolioSamples |
+                 portfolioQueryFilter:query |
+                 paginate:currentPage"
+              (click)="toggleSelected(sample)"
+              [ngClass]="{'active':isSelected(sample)}">
+            <div class="portfolio-wrp">
+              <img src="{{sample?.image}}" alt="">
+            </div>
+            <p>{{sample.title}}</p>
+          </li>
+        </ul>
+        <ar-list-pagination
+          [config]="currentPage"
+          (pageChanged)="currentPage = $event">
+        </ar-list-pagination>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-full" (click)="positiveAction()">{{positiveLabel}}</button>
+  </div>
+</div>

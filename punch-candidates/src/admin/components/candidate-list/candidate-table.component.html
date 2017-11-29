@@ -1,0 +1,31 @@
+<div class="table-responsive elements-table">
+    <table>
+        <!-- TABLEHEAD -->
+        <thead>
+            <th>NAME</th>
+            <th>ROLE</th>
+            <th>LOCATION</th>
+            <th>Added</th>
+        </thead>
+        <!-- TABLE ROW -->
+        <tr *ngFor="#candidate of candidates |
+                    candidateQueryFilter:filters.query |
+                    candidateRoleFilter:filters.role |
+                    paginate:currentPage"
+            (click)="onEditCandidate(candidate._id)">
+            <td>
+                <div class="avatar-wrp">
+                    <img src="{{candidate?.avatar?.thumbnail}}" alt="">
+                </div>
+                {{candidate.fullname}}
+            </td>
+            <td>{{candidate.roles[0] | roleText:roles}}</td>
+            <td>{{candidate.location}}</td>
+            <td>{{standardDate(candidate.createdAt)}}<td>
+            <td>
+                <button class="btn btn-secondary" (click)="onViewCandidate(candidate._id); $event.stopPropagation();">View Profile</button>
+            </td>
+        </tr>
+    </table>
+    <ar-list-pagination (pageChanged)="currentPage = $event"></ar-list-pagination>
+</div>

@@ -1,0 +1,13 @@
+@import '../kit/_variables.scss';
+
+.turned-off-content {
+  p {
+    margin: 0;
+    color: #989898;
+  }
+  a {
+    color: $Black;
+    font-size: 12px;
+    font-weight: bold;
+  }
+}

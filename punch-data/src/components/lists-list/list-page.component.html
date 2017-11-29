@@ -1,0 +1,90 @@
+<div id="wrapper" class="companies-wrap">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+      <div class="floated-navigation row">
+        <div class="col-sm-2">
+          <h2>{{list?.name}}</h2>
+        </div>
+        <div class="right-side col-sm-10">
+          <button *ngIf="companiesToDelete.length > 0"
+                  class="btn btn-secondary pull-right"
+                  (click)="showConfirmModal = !showConfirmModal">
+            Delete
+          </button>
+          <ar-list-search
+            [placeholder]="'Filter Companies..'"
+            (queryChanged)="query = $event;">
+          </ar-list-search>
+        </div>
+      </div>
+    </ar-header>
+    <!-- BODY -->
+    <div class="elements-wrp">
+      <div class="elements col-sm-12">
+        <div class="table-responsive elements-table companies-table">
+          <table>
+            <!-- TABLEHEAD -->
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>website</th>
+                <th>HQ</th>
+                <th>Employees</th>
+                <th>Founded</th>
+                <th>revenue</th>
+                <th>status</th>
+                <th>Markets</th>
+              </tr>
+            </thead>
+            <!-- TABLE ROW -->
+            <tr *ngFor="#company of companies |
+                    queryFilter:queryTargets:query |
+                    paginate:currentPage"
+                (click)="onViewCompany(company._id)">
+              <td (click)="$event.stopPropagation();">
+                <input type="checkbox" name="compToDelete" title="Add to selection"
+                       [(ngModel)]="company.selected" (ngModelChange)="onCheckboxChange(company)">
+              </td>
+              <td>
+                <a href="{{getCompanyURL(company)}}" (click)="$event.stopPropagation()" target="_blank">{{company.companyName}}</a>
+              </td>
+              <td><a href="{{company.websiteLink | urlFilter:'url'}}" (click)="$event.stopPropagation()" target="_blank">
+                {{company.websiteLink | urlFilter:'text'}}
+              </a></td>
+              <td>{{company.cityHeadQuartersIn}}</td>
+              <td>{{company.numberOfEmployees | formatNumber:true}}</td>
+              <td>{{company.dateFounded}}</td>
+              <td>&#36;{{company.revenue | formatNumber}}</td>
+              <td>{{company.status}}</td>
+              <td><span *ngFor="#cat of company.categories, #i = index"><i *ngIf="i !== 0">, </i>{{cat}}</span></td>
+            </tr>
+          </table>
+          <!-- FOOTER -->
+          <div class="table-footer">
+            <p class="results">{{currentPage?.totalItems}} Results</p>
+            <div class="page-size">
+              <ar-list-dropdown-filter
+                [elements]="resultsPerPage" [defaultText]="'Results Per Page'"
+                [value]="currentPage.itemsPerPage"
+                (dropdownFilterChanged)="updateResultsPerPage($event)">
+              </ar-list-dropdown-filter>
+            </div>
+          </div>
+          <!-- PAGINATION -->
+          <ar-list-pagination [config]="currentPage" (pageChanged)="pageChanged($event)"></ar-list-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM MODAL -->
+  <ar-confirmation-modal
+    [showModal]="showConfirmModal"
+    [message]="'Are you sure you want to delete the selected companies from this list?'"
+    [cancelLabel]="'Cancel'"
+    [positiveLabel]="'Yes'"
+    (closed)="confirmDelete($event)">
+  </ar-confirmation-modal>
+</div>

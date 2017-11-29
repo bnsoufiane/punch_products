@@ -1,0 +1,21 @@
+<div class="table-responsive elements-table proposal-table">
+    <table>
+        <!-- TABLEHEAD -->
+        <thead>
+            <th>TITLE</th>
+            <th>Added</th>
+        </thead>
+        <!-- TABLE ROW -->
+        <tr *ngFor="#proposal of proposals |
+                    proposalQueryFilter:query |
+                    paginate:currentPage"
+            (click)="onEditProposal(proposal._id)">
+            <td>{{proposal.name}}</td>
+            <td>{{standardDate(proposal.createdAt)}}<td>
+            <td>
+                <button class="btn btn-secondary" (click)="onViewProposal(proposal._id); $event.stopPropagation();">View Proposal</button>
+            </td>
+        </tr>
+    </table>
+    <ar-list-pagination [config]="currentPage" (pageChanged)="currentPage = $event"></ar-list-pagination>
+</div>

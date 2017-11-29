@@ -1,0 +1,163 @@
+<div class="modal-wrp" [class.hidden]="!showModal" (click)="cancelAction()">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block editmodal" (click)="$event.stopPropagation()">
+    <div class="modal-body-content">
+      <div class="row list-controls">
+        <div class="col-sm-12 modal-header">
+          Edit Company Details
+        </div>
+        <div class="custom-form">
+          <div class="col-sm-6">
+            <div class="title">COMPANY NAME</div>
+            <input type="text" id="companyName" [(ngModel)]="company.companyName"
+                   placeholder="e.g. Edakhlaa">
+          </div>
+          <div class="col-sm-6">
+            <div class="title">STATUS</div>
+            <select [(ngModel)]="company.status">
+              <option value="" selected class="default-option">Select status</option>
+              <option *ngFor="#status of SEED_DATA.STATUSES" value="{{status}}">
+                {{status}}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-6">
+            <div class="title">EMPLOYEES</div>
+            <input type="text" id="numberOfEmployees" [(ngModel)]="company.numberOfEmployees"
+                   placeholder="e.g. 90">
+          </div>
+          <div class="col-sm-3">
+            <div class="title">FOUNDED DATE</div>
+            <select [(ngModel)]="foundedDate.month">
+              <option value="" selected class="default-option">Month</option>
+              <option *ngFor="#month of SEED_DATA.DATE.MONTHS" value="{{month}}">
+                {{month}}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <div class="title hideDisplay">Year</div>
+            <select [(ngModel)]="foundedDate.year">
+              <option value="0" selected class="default-option">Year</option>
+              <option *ngFor="#year of SEED_DATA.DATE.YEARS" value="{{year}}">
+                {{year}}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-6">
+            <div class="title">Markets</div>
+            <input type="text" id="markets" [(ngModel)]="markets"
+                   placeholder="comma separated values: e.g. Big  Data, IT">
+          </div>
+          <div class="col-sm-6">
+            <div class="title">Founders Names</div>
+            <input type="text" id="foundersNames" [(ngModel)]="foundersNames"
+                   placeholder="comma separated values: e.g. Jane Smith, John Doe">
+          </div>
+          <div class="col-sm-12">
+            <div class="title">Description</div>
+            <textarea id="description" [(ngModel)]="company.description"
+                   placeholder="company description"></textarea>
+          </div>
+          <div class="col-sm-12">
+            <hr>
+          </div>
+          <div class="col-sm-4">
+            <div class="title">WEBSITE URL</div>
+            <input type="text" id="websiteLink" [(ngModel)]="company.websiteLink"
+                   placeholder="e.g. www.example.com">
+          </div>
+          <div class="col-sm-4">
+            <div class="title">LINKEDIN URL</div>
+            <input type="text" id="linkedInURL" [(ngModel)]="company.linkedInURL"
+                   placeholder="e.g. www.linkedin.com/example">
+          </div>
+          <div class="col-sm-4">
+            <div class="title">TWITTER URL</div>
+            <input type="text" id="twitterURL" [(ngModel)]="company.twitterURL"
+                   placeholder="e.g. www.twitter.com/example">
+          </div>
+          <div class="col-sm-6">
+            <div class="title">FACEBOOK URL</div>
+            <input type="text" id="facebookURL" [(ngModel)]="company.facebookURL"
+                   placeholder="e.g. www.facebook.com/example">
+          </div>
+          <div class="col-sm-6">
+            <div class="title">INSTAGRAM URL</div>
+            <input type="text" id="instagramURL" [(ngModel)]="company.instagramURL"
+                   placeholder="e.g. www.instagram.com/example">
+          </div>
+          <div class="col-sm-12">
+            <hr>
+          </div>
+          <div class="col-sm-3">
+            <div class="title">TOTAL RAISED</div>
+            <input type="text" id="fundingAmount" [(ngModel)]="company.fundingAmount"
+                   placeholder="e.g. $100,000">
+          </div>
+          <div class="col-sm-3">
+            <div class="title">TOTAL ROUNDS</div>
+            <select [(ngModel)]="company.fundingRounds">
+              <option value="" selected class="default-option">Select rounds</option>
+              <option *ngFor="#round of getTotalRounds()" value="{{round}}">
+                {{round}}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <div class="title">LAST ROUND</div>
+            <select [(ngModel)]="company.lastRound">
+              <option value="" selected class="default-option">Select last round</option>
+              <option *ngFor="#last of SEED_DATA.LAST_ROUNDS" value="{{last}}">
+                {{last}}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <div class="title">Revenue</div>
+            <input type="text" id="revenue" [(ngModel)]="company.revenue"
+                   placeholder="e.g. $300M">
+          </div>
+          <div class="keyPersonBlock" *ngFor="#person of company.keyPeople">
+            <div class="col-sm-12">
+              <hr>
+            </div>
+            <div class="col-sm-8">
+              <div class="title">KEY PERSON</div>
+              <input type="text" [(ngModel)]="person.name"
+                     placeholder="e.g. John Doe">
+            </div>
+            <div class="col-sm-4">
+              <div class="title">TITLE</div>
+              <input type="text" [(ngModel)]="person.title"
+                     placeholder="e.g. CEO">
+            </div>
+            <div class="col-sm-4">
+              <div class="title">LINKEDIN URL</div>
+              <input type="text" [(ngModel)]="person.linkedIn"
+                     placeholder="e.g. www.linkedin.com/john">
+            </div>
+            <div class="col-sm-4">
+              <div class="title">TWITTER URL</div>
+              <input type="text" [(ngModel)]="person.twitter"
+                     placeholder="e.g. www.twitter.com/john">
+            </div>
+            <div class="col-sm-4">
+              <div class="title">EMAIL ADDRESS</div>
+              <input type="text" [(ngModel)]="person.email"
+                     placeholder="e.g. john.doe@example.com">
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <hr>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-secondary btn-addperson" (click)="addKeyPerson()">ADD KEY PERSON</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-full" (click)="positiveAction()">{{positiveLabel}}</button>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+export {User} from './user/user.interface';
+export {Job} from './job/job.interface';
+export {CompanyDetail} from './company-detail/company-detail.interface';
+export {LocalBusiness} from './local-business/local-business.interface';
+export {KeyValue} from './local-business/key-value.interface';
+export {OpeningHours} from './local-business/opening-hours.interface';
+export {Rating} from './local-business/rating.interface';
+export {PopOverConfig, PopOverTargetEvent} from './inter-component-contracts/staffing-popover-contract.interface';
+export {EditableCompany, KeyPeople} from './editable-company/editable-company.interface';
+export {List} from './list/list.interface';

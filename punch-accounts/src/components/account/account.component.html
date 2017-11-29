@@ -1,0 +1,132 @@
+<div id="wrapper">
+  <ar-header></ar-header>
+  <div class="my-account">
+    <!-- HEADER -->
+    <div class="header">
+      <div class="container">
+        <h2>Settings</h2>
+      </div>
+    </div>
+    <!-- BODY -->
+    <div class="container">
+      <!-- ACCOUNT INFO -->
+      <div class="row">
+        <!-- AVATAR -->
+        <div class="col-sm-4">
+          <div class="file-wrp">
+            <div *ngIf="user?.avatar?.thumbnail">
+              <div class="preview">
+                <img src="{{user?.avatar?.thumbnail}}" alt="">
+                <a (click)="removeAvatar()" class="icon-close ion-close-round"></a>
+              </div>
+            </div>
+            <div class="file-up">
+              <span class="arrow"></span>
+              <span class="file-title">UPLOAD AVATAR</span>
+            </div>
+            <div>
+              <input type="file"
+                (change)="uploadImage($event)" name="avatar" id="avatar">
+            </div>
+          </div>
+        </div>
+        <!-- ACCOUNT FORM -->
+        <div class="col-sm-8">
+          <form (ngSubmit)="updateProfile(user)" #profileForm="ngForm" id="profileForm">
+            <div class="row">
+              <div class="col-sm-6">
+                <input type="text" placeholder="First Name" id="firstName"
+                  [(ngModel)]="user.firstName" required />
+              </div>
+              <div class="col-sm-6">
+                <input type="text" placeholder="Last Name" id="lastName"
+                  [(ngModel)]="user.lastName" required />
+              </div>
+            </div>
+            <!-- TODO(irtazabbas): Re-enable country and timezone once email
+                 notifications are in place. -->
+
+            <!--<div class="row">
+              <div class="col-sm-6">
+                <input type="text" placeholder="Country" id="country"
+                  [(ngModel)]="user.country" />
+              </div>
+              <div class="col-sm-6">
+                <input type="text" placeholder="Timezone" id="timeZone"
+                  [(ngModel)]="user.timeZone" />
+              </div>
+            </div>-->
+            <div class="row">
+              <div class="col-sm-12">
+                <input type="text" placeholder="Email Address" id="email"
+                  [(ngModel)]="user.email" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <button type="submit" form="profileForm"
+                  [attr.disabled]="updatingProfile? true:null"
+                  class="btn btn-lg btn-plain btn-full">SAVE EDITS</button>
+              </div>
+            </div>
+          </form>
+          <!--CHANGE PASSWORD-->
+          <form (ngSubmit)="updatePassword(user)" #passwordForm="ngForm" id="passwordForm">
+            <div class="row">
+              <div class="col-sm-12">
+                <input type="password" [(ngModel)]="oldPassword"
+                  required placeholder="Old Password">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <input type="password" [(ngModel)]="newPassword"
+                  required placeholder="New Password">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <button type="submit"
+                  [attr.disabled]="updatingPassword? true:null"
+                  class="btn btn-plain btn-full">SAVE PASSWORD</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- LINKED ACCOUNTS -->
+      <div class="col-sm-12 linked-accounts">
+        <h5>LINKED ACCOUNTS</h5>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="col col-sm-6">
+              <p>Google Connect</p>
+            </div>
+            <div *ngIf="user.googleId" class="col-sm-6 right-side">
+              <button class="btn btn-primary btn-sm">CONNECTED</button>
+            </div>
+            <div *ngIf="!user.googleId" class="col-sm-6 right-side">
+              <button class="btn btn-secondary btn-sm"
+                (click)="connectGoogle()">CONNECT</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="col col-sm-6">
+              <p>Linkedin</p>
+            </div>
+            <div *ngIf="user.linkedinId" class="col-sm-6 right-side">
+              <button class="btn btn-primary btn-sm">CONNECTED</button>
+            </div>
+            <div *ngIf="!user.linkedinId" class="col-sm-6 right-side">
+              <button class="btn btn-secondary btn-sm"
+                (click)="connectLinkedin()">CONNECT</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END -->
+    </div>
+  </div>
+</div>

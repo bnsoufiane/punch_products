@@ -1,0 +1,13 @@
+@import '../kit/_variables.scss';
+
+.editmodal {
+  position: relative;
+  hr {
+    display: block;
+    margin: 5px 0px 20px;
+  }
+  .btn-addperson {
+    display: block;
+    margin: 0 auto 50px ;
+  }
+}

@@ -1,0 +1,43 @@
+<div id="wrapper">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+      <div class="floated-navigation">
+        <div class="col-sm-6">
+          <h2>Our Candidates</h2>
+        </div>
+        <div class="right-side col-sm-6">
+          <button [routerLink]="['CandidateDetailAdd']" class="btn btn-primary">Add Candidate</button>
+        </div>
+      </div>
+    </ar-header>
+    <!-- CANDIDATE HEADER -->
+    <div class="floated-navigation row list-controls">
+      <div class="right-side col-sm-12">
+        <ar-table-grid-toggle (toggleClicked)="currentListType = $event"></ar-table-grid-toggle>
+        <ar-list-search (queryChanged)="query = $event"></ar-list-search>
+      </div>
+    </div>
+    <!-- CANDIDATE LISTINGS -->
+    <div class="elements-wrp">
+      <div class="candidate-roles col-sm-2">
+        <ar-candidate-sidebar [roles]="roles" (sidebarFilterChanged)="role = $event"></ar-candidate-sidebar>
+      </div>
+      <div class="candidate-table col-sm-10">
+        <!-- TABLE -->
+        <ar-candidate-table
+            *ngIf="currentListType !== 'grid'"
+            [candidates]="candidates" [roles]="roles" [filters]="{query:query, role:role}"
+            (viewCandidateClicked)="viewProfile($event)" (editCandidateClicked)="viewDetail($event)">
+        </ar-candidate-table>
+        <!-- GRID -->
+        <ar-candidate-grid
+            *ngIf="currentListType === 'grid'"
+            [candidates]="candidates" [roles]="roles" [filters]="{query:query, role:role}"
+            (viewCandidateClicked)="viewProfile($event)" (editCandidateClicked)="viewDetail($event)">
+        </ar-candidate-grid>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,27 @@
+<!-- NAV -->
+<nav class="navbar clearfix" role="navigation">
+  <!-- NAV -->
+  <div class="col-sm-9 nav">
+    <a [routerLink]="['Home']" class="logo">
+      <img src="admin/assets/images/shared/logo-navbar-2x.png" alt="Punch Logo" width="61" height="20">
+    </a>
+    <li><a [routerLink]="['Home']" [ngClass]="{active: isActive('Home')}">Candidates</a></li>
+  </div>
+  <!-- USER RIGHT SIDE -->
+  <div class="col-sm-3 user">
+    <li dropdown>
+      <a href id="user-dropdown" dropdownToggle>
+        <i class="icon ion-chevron-down"></i>
+        <div class="avatar">
+          <img src="admin/assets/images/shared/avatar.png" width="26" height="26">
+        </div>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="user-dropdown">
+        <li class="username">{{getCurrentUserName()}}</li>
+        <li><a class="dropdown-item" href="#" (click)="logOut()">Sign out</a></li>
+      </ul>
+    </li>
+  </div>
+</nav>
+<!-- SECONDARY NAV -->
+<ng-content></ng-content>

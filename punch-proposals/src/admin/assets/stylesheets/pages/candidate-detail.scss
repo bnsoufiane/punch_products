@@ -1,0 +1,399 @@
+@import '../kit/_variables.scss';
+
+.add-candidate-page {
+  .candidate-sidebar {
+    position: relative;
+  }
+  .right-side .btn {
+    margin-left: 20px;
+  }
+}
+
+div.required-field *{
+  color: red !important;/* red */
+}
+
+.candidate-wrp {
+  display: flex;
+  @media all and (max-width: 991px) {
+    flex-wrap: wrap;
+  }
+}
+
+.candidate-table {
+  @media all and (max-width: 991px) {
+    width: 100%;
+    margin-top: 20px;
+    padding-left: 15px;
+  }
+  .table-responsive {
+    border-radius: $radius;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+#page-wrapper {
+  min-height: calc(100% - 118px);
+  padding-bottom: 53px;
+}
+
+.custom-form {
+  .title {
+    color: #b5b5b5;
+    font-family: $font-semibold;
+    font-size: 12px;
+    letter-spacing: 2.8px;
+    line-height: 1.5;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    .subtitle {
+      color: #d3d3d3;
+      font-family: $font-semibold;
+      letter-spacing: 0;
+      padding-left: 8px;
+    }
+  }
+  .file-wrp {
+    background: #f8f8f8;
+    border-radius: $radius;
+    overflow: hidden;
+    position: relative;
+    input[type="file"] {
+      cursor: pointer;
+      height: auto;
+      margin: auto;
+      opacity: 0;
+      padding: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: auto;
+      z-index: 2;
+    }
+    &.small {
+      height: 131px;
+    }
+    &.big {
+      height: 131px;
+    }
+    &.white {
+      background: #fff;
+      border: 1px solid #ebebeb;
+      height: 130px;
+      width: 100%;
+      &.small {
+        border: 1px solid #ededed;
+        height: 75px;
+        width: 100%;
+        .file-up {
+          height: 100%;
+          .arrow {
+            background: url('../../../../admin/assets/images/candidate-detail/arrow-up-small.png') no-repeat;
+            width: 18px;
+            height: 18px;
+            margin-top: 13px;
+            background-size: 18px 18px;
+            -webkit-background-size:18px 18px;
+          }
+          .file-title {
+            bottom: 16px;
+          }
+        }
+      }
+    }
+    .file-up {
+      text-align: center;
+      .file-title {
+        bottom: 30px;
+        color: #bbbbbb;
+        display: block;
+        font-family: $font-semibold;
+        font-size: 12px;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        z-index: 1;
+      }
+      .arrow {
+        background: url('../../../../admin/assets/images/candidate-detail/arrow-up.png') no-repeat;
+        border-radius: 5px;
+        display: inline-block;
+        width: 33px;
+        height: 33px;
+        background-size: 33px 33px;
+        -webkit-background-size:33px 33px;
+        margin-top: 40px;
+      }
+    }
+    .preview {
+      position: absolute;
+      background: #fff;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 3;
+      margin: auto;
+      img {
+        display: block;
+        left: 50%;
+        max-height: 90%;
+        max-width: 90%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      p {
+        background: #fff;
+        bottom: 0;
+        height: 19px;
+        left: 0;
+        margin: 0;
+        position: absolute;
+        text-align: left;
+        top: 30px;
+        font-size: 11px;
+        font-family: $font-reg;
+        transform: translateY(-50%);
+        width: 100%;
+        white-space: inherit;
+        word-wrap: normal;
+      }
+    }
+  }
+  input[type="text"],
+  select {
+    padding: 10px 12px;
+  }
+  select{
+    background-image: url('../../../../admin/assets/images/shared/select-click.png');
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+  }
+  .skillset-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    span {
+      border: 1px solid #ebebeb;
+      border-radius: 1px;
+      color: #444;
+      display: inline-block;
+      font-family: $font-bold;
+      font-size: 14px;
+      height: 36px;
+      line-height: 34px;
+      text-align: center;
+      width: 36px;
+    }
+  }
+  .two-inputs {
+    display: flex;
+    justify-content: space-between;
+    input {
+      width: 50%;
+      &:first-child {
+        margin-right: 5px;
+      }
+      &:last-child {
+        margin-left: 5px;
+      }
+    }
+  }
+  .company-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .select-holder {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: $radius;
+    position: relative;
+    select {
+      background: #fff;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    .select-arrow {
+      background: url('../../../../admin/assets/images/shared/select-click.jpg') no-repeat;
+      bottom: 0;
+      display: inline-block;
+      height: 14px;
+      margin: auto;
+      pointer-events: none;
+      position: absolute;
+      right: 5px;
+      top: 0;
+      width: 17px;
+    }
+  }
+  textarea {
+    margin-top: 10px;
+    min-height: 70px;
+    resize:vertical;
+    height: auto;
+    overflow-y:hidden;
+  }
+  .dates-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    input, select {
+      margin-left: 6px;
+      width: 20%;
+      &:first-child {
+        margin-left: 0;
+      }
+      .default-option {
+        color: #bbb;
+        font-size: 12px;
+      }
+    }
+    .divider {
+      color: #bbb;
+      font-family: $font-semibold;
+      font-size: 12px;
+      margin-left: 6px;
+      text-align: center;
+      width: 20%;
+      @media all and (max-width: 1366px) {
+        width: auto;
+      }
+    }
+    .workshere {
+      width: 100%;
+      font-size: 12px;
+      margin-top: 5px;
+      label {
+        display: inline-block;
+        float: left;
+        font-family: $font-reg;
+        font-weight: normal;
+        color: $Grey-6;
+        margin-top: 3px;
+      }
+      input {
+        float: left;
+        width: 30px;
+        height: 14px;
+      }
+    }
+  }
+  .basic-info {
+    display: flex;
+    @media all and(max-width: 1024px) {
+      display: block;
+    }
+    .left-side {
+      display: flex;
+      @media all and(max-width: 1024px) {
+        width: 100%;
+      }
+    }
+    .avatar-holder {
+      width: 36.1%;
+    }
+    .interview-holder {
+      margin-left: 14px;
+      width: 59%;
+    }
+    .right-side {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: space-between;
+      width: 66.6666%;
+      @media all and(max-width: 1024px) {
+        width: 100%;
+      }
+      .text-wrp {
+        margin-left: 20px;
+        width: calc(50% - 20px);
+        @media all and(max-width: 1024px) {
+          width: 100%;
+          margin-left: 0;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  .skillset-block {
+    margin-top: 58px;
+    .title {
+      margin: 0px 15px 8px;
+    }
+    .skillset-list {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        display: flex;
+        margin: 0;
+        flex-wrap: wrap;
+        @media all and (max-width: 1024px) {
+          margin: 20px 0 0;
+        }
+        &:nth-child(n+4) {
+          margin-top: 20px;
+        }
+        input {
+          height: 37px;
+          &:first-of-type {
+            margin-left: 8px;
+            margin-top: 0;
+            width: calc(100% - 46px);
+          }
+          &:last-of-type {
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+  .past-experience-block {
+    margin-top: 58px;
+    .title {
+      margin: 0px 15px 8px;
+    }
+    .company-list {
+      display: flex;
+      @media all and(max-width: 1024px) {
+        display: block;
+      }
+      li {
+        margin: 0;
+        @media all and(max-width: 1024px) {
+          margin: 20px 0 0;
+        }
+        &:nth-child(2n) {
+          margin: 0 20px;
+          @media all and(max-width: 1024px) {
+            margin: 20px 0 0;
+          }
+        }
+        .two-inputs {
+          margin-bottom: 9px;
+          margin-top: 9px;
+        }
+        .dates-inputs {
+          margin-bottom: 10px;
+          margin-top: 8px;
+        }
+      }
+    }
+    .samples-list {
+      display: flex;
+      margin: 14px 0 0;
+      padding: 0;
+      li {
+        margin: 0;
+        width: 28.2%;
+        &:nth-child(2n) {
+          margin: 0 24px;
+        }
+      }
+    }
+  }
+}

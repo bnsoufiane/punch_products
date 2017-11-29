@@ -1,0 +1,120 @@
+<div id="wrapper" class="company-detail">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+    </ar-header>
+    <!-- HEADER -->
+    <div class ="header">
+      <div class="container">
+        <div class="avatar">
+          <img src="{{company?.logo || 'common/images/no-logo.png'}}">
+        </div>
+        <h2>{{company?.companyName}}</h2>
+        <div class="social-icons">
+          <span *ngIf="company?.linkedInURL"><a href="{{company?.linkedInURL}}" target="_blank"><i class="fa fa-linkedin"></i></a></span>
+          <span *ngIf="company?.twitterURL"><a href="{{company?.twitterURL}}" target="_blank"><i class="fa fa-twitter"></i></a></span>
+          <span *ngIf="company?.facebookURL"><a href="{{company?.facebookURL}}" target="_blank"><i class="fa fa-facebook"></i></a></span>
+          <span *ngIf="company?.youtubeURL"><a href="{{company?.youtubeURL}}" target="_blank"><i class="fa fa-youtube-play"></i></a></span>
+          <span *ngIf="company?.instagramURL"><a href="{{company?.instagramURL}}" target="_blank"><i class="fa fa-instagram"></i></a></span>
+          <span *ngIf="company?.crunchBaseURL"><a href="{{company?.crunchBaseURL}}" target="_blank"><i class="cb">cb</i></a></span>
+        </div>
+      </div>
+    </div>
+    <!-- BODY -->
+    <div class="container">
+      <!-- OVERVIEW -->
+      <div class="categories">
+        <span *ngFor="#cat of company?.categories">{{cat}}</span>
+      </div>
+      <p class="description">{{company?.description}}</p>
+      <!-- DETAILS -->
+      <div class="section-header">
+        <h2 class="section-title">Company Details</h2>
+        <i class="icon ion-edit" (click)="toggleEditCompanyModal(company)"></i>
+      </div>
+      <div class="col-sm-6 details">
+        <ul>
+          <li *ngIf="company?.websiteLink">
+            <label>Website</label>
+            <span><a href="{{company?.websiteLink}}" target="_blank">{{company?.websiteLink}}</a></span>
+          </li>
+          <li *ngIf="company?.dateFounded">
+            <label>Founded</label>
+            <span>{{company?.dateFounded}}</span>
+          </li>
+          <li *ngIf="company?.foundersNames?.length > 0">
+            <label>Founders</label>
+            <span><i *ngFor="#founder of company?.foundersNames, #i = index"><i *ngIf="i !== 0">, </i>{{founder}}</i></span>
+          </li>
+          <li *ngIf="company?.numberOfEmployees">
+            <label>Employees</label>
+            <span>{{company?.numberOfEmployees}}</span>
+          </li>
+          <li *ngIf="company?.cityHeadQuartersIn">
+            <label>Headquarters</label>
+            <span>{{company?.cityHeadQuartersIn}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-6 details">
+        <ul>
+          <li *ngIf="company?.status">
+            <label>Status</label>
+            <span>{{company?.status}}</span>
+          </li>
+          <li *ngIf="company?.lastFundingDate">
+            <label>Last Round</label>
+            <span>{{company?.lastFundingDate}}</span>
+          </li>
+          <li *ngIf="company?.revenue">
+            <label>Revenue</label>
+            <span>{{company?.revenue}}</span>
+          </li>
+          <li *ngIf="company?.email">
+            <label>Contact</label>
+            <span>{{company?.email}}</span>
+          </li>
+          <li *ngIf="company?.phone">
+            <label>Phone</label>
+            <span>{{company?.phone}}</span>
+          </li>
+        </ul>
+      </div>
+      <!-- AQUISITIONS -->
+      <div class="section-header" *ngIf="company?.acquisitionsNumber">
+        <h2 class="section-title">Aquisitions</h2>
+        <h3>({{company?.acquisitionsNumber}})</h3>
+        <i class="icon ion-edit" (click)="toggleEditCompanyModal(company)"></i>
+      </div>
+      <!-- INVESTMENTS -->
+      <div class="section-header" *ngIf="company?.fundingRounds?.length > 0">
+        <h2 class="section-title">Funding Rounds</h2>
+        <h3>({{company?.fundingRounds}})</h3>
+        <i class="icon ion-edit" (click)="toggleEditCompanyModal(company)"></i>
+      </div>
+      <!-- CURRENT TEAM -->
+      <div class="section-header" *ngIf="company?.keyPeople?.length > 0">
+        <h2 class="section-title">Team</h2>
+        <h3>({{company?.keyPeople?.length || '0'}})</h3>
+        <i class="icon ion-edit" (click)="toggleEditCompanyModal(company)"></i>
+      </div>
+      <ul class="team">
+        <li *ngFor="#person of company?.keyPeople" class="col-sm-4">
+          <h4>{{person?.name}}</h4>
+          <p>{{person?.title}}</p>
+          <a *ngIf="person.email" href="mailto:{{person.email}}">{{person?.email}}</a>
+          <div class="social-icons">
+            <span *ngIf="person?.twitter"><a href="{{person?.twitter}}" target="_blank"><i class="fa fa-twitter"></i></a></span>
+            <span *ngIf="person?.facebook"><a href="{{person?.facebook}}" target="_blank"><i class="fa fa-facebook"></i></a></span>
+            <span *ngIf="person?.linkedIn"><a href="{{person?.linkedIn}}" target="_blank"><i class="fa fa-linkedin"></i></a></span>
+            <span *ngIf="person?.website"><a href="{{person?.website}}" target="_blank"><i class="fa fa-globe"></i></a></span>
+          </div>
+        </li>
+      </ul>
+    </div><!-- END CONTAINER -->
+  </div>
+  <ar-edit-company-modal
+    [company]="editableCompany" [showModal]="showEditCompanyModal"
+    (closed)="toggleEditCompanyModal()" (editedCompany)="saveEdits($event)">
+  </ar-edit-company-modal>
+</div>

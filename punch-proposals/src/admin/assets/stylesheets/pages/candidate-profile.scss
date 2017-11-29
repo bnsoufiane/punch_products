@@ -1,0 +1,350 @@
+@import '../kit/_variables.scss';
+
+.profile-page {
+  border-top: 4px solid $punchYellow;
+  .wrp {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 0 10px;
+    @media all and(max-width: 991px) {
+      padding: 0 11%;
+    }
+  }
+  /*-- NAV --*/
+  .navbar {
+    align-items: center;
+    display: flex;
+    margin: 0;
+    z-index: 0;
+    padding: 44px 0px;
+    border: none;
+    .logo {
+      width: 77px;
+      margin-left: 0px;
+      padding: 0px;
+    }
+    @media all and (max-width: 768px) {
+      display: block;
+      padding: 15px;
+      .logo {
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+  /*-- POPUP --*/
+  .popup {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: $radius;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.1);
+    display: none;
+    left: 0;
+    margin-top: 33px;
+    padding: 38px 73px 38px 38px;
+    position: absolute;
+    top: 100%;
+    width: 550px;
+    z-index: 2;
+    &:after {
+      background: url("../../../../admin/assets/images/shared/popup-top.png") no-repeat;
+      content: '';
+      height: 12px;
+      left: 38px;
+      position: absolute;
+      top: -12px;
+      width: 21px;
+    }
+    h4 {
+      color: #444;
+      font-family: $font-semibold;
+      font-size: 16px;
+      margin: 0 0 31px;
+    }
+    p {
+      color: #818181;
+      font-family: $font-reg;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      &:last-child {
+        color: #8F8F8F;
+        margin-bottom: 0;
+      }
+    }
+    @media all and(max-width: 991px) {
+      display: block;
+      position: static;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      &:after {
+        content: none;
+      }
+    }
+  }
+  .info {
+    background: #f9fafa;
+    padding-bottom: 23px;
+  }
+  /*-- HEADER --*/
+  .basic-info {
+    display: flex;
+    align-items: center;
+    .avatar-section {
+      position: relative;
+      border-radius: 50%;
+      height: 199px;
+      margin-right: 65px;
+      overflow: hidden;
+      width: 199px;
+      &:after {
+        @include avatar-border(2px, 0.13, 50%);
+      }
+      img {
+        display: block;
+        height: 100%;
+      }
+    }
+    .info-section {
+      h2 {
+        font-family: $font-semibold;
+        font-size: 38px;
+        line-height: 1.1;
+        margin: 0 0 18px;
+        letter-spacing: 0.4px;
+      }
+      h3 {
+        color: #636363;
+        font-family: $font-semibold;
+        font-size: 29px;
+        line-height: 1.2;
+        margin: 0 0 18px;
+      }
+      h4 {
+        color: #999999;
+        font-family: $font-reg;
+        font-size: 16px;
+        line-height: 1.1;
+        margin: 0 0 26px;
+      }
+    }
+    @media all and(max-width: 991px) {
+      display: block;
+      .avatar-section {
+        margin: 0 auto;
+        width: 130px;
+        height: 130px;
+      }
+      .info-section {
+        text-align: center;
+        margin-top: 29px;
+        h2 {
+          font-size: 32px;
+          line-height: 1.6;
+          margin: 0;
+        }
+        h3 {
+          font-size: 18px;
+          line-height: 1.6;
+          margin: 0 0 14px;
+        }
+        h4 {
+          font-size: 18px;
+          margin: 0;
+        }
+      }
+    }
+  }
+  .top-skills {
+    margin-top: 68px;
+    margin-bottom: 16px;
+    .skills-list {
+      list-style: none;
+      margin: 14px 0 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        margin: 0 0 14px;
+        position: relative;
+        vertical-align: top;
+        width: 33%;
+        @media all and(max-width: 991px) {
+          width: 100%;
+        }
+        &:nth-child(3n + 3) {
+          .skill-name {
+            & + .popup {
+              left: auto;
+              right: 0;
+              &:after {
+                left: auto;
+                right: 22%;
+              }
+            }
+          }
+        }
+      }
+      .skill-name {
+        display: inline-block;
+        cursor: pointer;
+        &:hover {
+          & + .popup {
+            display: block;
+          }
+        }
+        span {
+          color: #000;
+          display: inline-block;
+          font-family: $font-bold;
+          font-size: 19px;
+          margin-right: 8px;
+          min-width: 26px;
+          text-align: center;
+          vertical-align: baseline;
+          line-height: 26px;
+        }
+        p {
+          display: inline-block;
+          color: #7a7c82;
+          font-family: $font-reg;
+          font-size: 19px;
+          min-width: 26px;
+          text-align: center;
+          vertical-align: baseline;
+          margin: 8px;
+        }
+      }
+    }
+    @media all and(max-width: 991px) {
+      margin-top: 56px;
+      .title {
+        display: none;
+      }
+      .skills-list {
+        margin-top: 0;
+        li {
+          margin: 0 0 31px;
+        }
+      }
+    }
+  }
+  .title {
+    color: #bababa;
+    font-family: $font-bold;
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: 1.3;
+    margin: 0;
+  }
+  .experience-block {
+    margin-top: 53px;
+    margin-bottom: 74px;
+    .experience-avatar {
+      position: relative;
+      border: 1px solid #e5e8ec;
+      height: 220px;
+      margin-bottom: 20px;
+      width: 100%;
+      img {
+        display: block;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        padding: 20px;
+        max-width: 77%;
+        max-height: 127px;
+      }
+    }
+    .title {
+      margin-bottom: 15px;
+    }
+    .experience-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        margin-left: -4px;
+        padding: 0 12px;
+        vertical-align: top;
+        width: 33.3%;
+        &:first-child {
+          margin-left: 0;
+          padding-left: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+      a {
+        color: #000;
+        text-decoration: none;
+        &:hover {
+          border-bottom: 2px solid $punchYellow;
+        }
+      }
+      h3 {
+        font-family: $font-bold;
+        font-size: 20px;
+        margin: 4px 0 4px;
+      }
+      h4 {
+        color: #6d707d;
+        font-family: $font-semibold;
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0 0 12px;
+      }
+      p {
+        color: #5f6268;
+        font-family: $font-reg;
+        font-size: 13px;
+        line-height: 2.3;
+        margin: 0 0 21px;
+        &.desc {
+          min-height: 94px;
+          word-wrap: break-word;
+        }
+        &.date {
+          color: #a8abb9;
+          font-size: 13px;
+          line-height: 1;
+          margin: 0 0 5px;
+        }
+      }
+      button {
+        height: 42px;
+        margin: 24px 0 0;
+        min-width: 122px;
+      }
+      @media all and(max-width: 991px) {
+        li {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+    @media all and(max-width: 991px) {
+      margin-top: 22px;
+      margin-bottom: 50px;
+      .title {
+        margin-bottom: 12px;
+      }
+      .experience-list {
+        li {
+          margin: 36px 0 0;
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
+  .button-block {
+    margin-top: 20px;
+  }
+}

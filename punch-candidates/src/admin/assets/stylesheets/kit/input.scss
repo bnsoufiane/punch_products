@@ -1,0 +1,50 @@
+@import '_variables.scss';
+
+input,input[type="text"], textarea, select, .form-control {
+  width: 100%;
+  height: auto;
+  border: none;
+  border-radius: $radius;
+  padding: 8px 13px 8px;
+  font-family: $font-semibold;
+  font-size: 12px;
+  background: #f8f8f8;
+  color: #444;
+  box-shadow: none;
+  -webkit-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  &:focus {
+    outline: none;
+  }
+  @media all and (max-width: 1366px){
+    padding: 9px 5px 12px;
+  }
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #bbb;
+    font-size: 12px;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    color: #bbb;
+    font-size: 12px;
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    color: #bbb;
+    font-size: 12px;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: #bbb;
+    font-size: 12px;
+  }
+}
+
+.ui-select-search {
+  height: 30px!important;
+}
+.ui-select-multiple.ui-select-bootstrap {
+  .btn-secondary {
+    padding: 6px 15px;
+  }
+}

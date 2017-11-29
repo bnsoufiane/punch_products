@@ -1,0 +1,12 @@
+<ar-sidebar class="candidate-sidebar">
+    <ul class="position-list">
+        <li [ngClass]="{active: !activeSidebarFilter}" (click)="onFilterChanged(null)">
+            <a>All Positions</a>
+        </li>
+        <li *ngFor="#role of roles"
+            [ngClass]="{active:activeSidebarFilter?.id === role?.id}"
+            (click)="onFilterChanged(role)">
+            <a>{{role?.text}}</a>
+        </li>
+    </ul>
+</ar-sidebar>

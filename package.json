@@ -1,0 +1,42 @@
+{
+  "name": "punch-products",
+  "version": "0.0.0",
+  "description": "Punch products",
+  "repository": {
+    "url": "https://github.com/punchagency/punch-products"
+  },
+  "scripts": {
+    "start": "concurrently --prefix 'name' --names ' ACCN , CAND , PROP , DATA ' 'npm run dev.accn' 'npm run dev.cand' 'npm run dev.prop' 'npm run dev.data'",
+    "dev.data.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run dev.accn' 'npm run dev.data'",
+    "dev.prop.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run dev.accn' 'npm run dev.prop'",
+    "dev.cand.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run dev.accn' 'npm run dev.cand'",
+    "dev.data": "cd punch-data && gulp serve.dev --color",
+    "dev.accn": "cd punch-accounts && gulp serve.dev --color",
+    "dev.prop": "cd punch-proposals && gulp serve.dev --color",
+    "dev.cand": "cd punch-candidates && gulp serve.dev --color",
+    "prod": "concurrently --prefix 'name' --names ' ACCN , CAND , PROP , DATA ' 'npm run prod.accn' 'npm run prod.cand' 'npm run prod.prop' 'npm run prod.data'",
+    "prod.data.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run prod.accn' 'npm run prod.data'",
+    "prod.prop.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run prod.accn' 'npm run prod.prop'",
+    "prod.cand.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run prod.accn' 'npm run prod.cand'",
+    "prod.data": "cd punch-data && gulp serve.prod --color",
+    "prod.accn": "cd punch-accounts && gulp serve.prod --color",
+    "prod.prop": "cd punch-proposals && gulp serve.prod --color",
+    "prod.cand": "cd punch-candidates && gulp serve.prod --color",
+    "build.prod.data": "cd punch-data && gulp build.prod --color",
+    "build.prod.accn": "cd punch-accounts && gulp build.prod --color",
+    "build.prod.prop": "cd punch-proposals && gulp build.prod --color",
+    "build.prod.cand": "cd punch-candidates && gulp build.prod --color",
+    "deploy": "concurrently --prefix 'name' --names ' ACCN , CAND , PROP , DATA ' 'npm run deploy.accn' 'npm run deploy.cand' 'npm run deploy.prop' 'npm run deploy.data'",
+    "deploy.data.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run deploy.accn' 'npm run deploy.data'",
+    "deploy.prop.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run deploy.accn' 'npm run deploy.prop'",
+    "deploy.cand.accn": "concurrently --prefix 'name' --names ' ACCN , DATA ' 'npm run deploy.accn' 'npm run deploy.cand'",
+    "deploy.accn": "npm run build.prod.accn && gsutil rsync -R punch-accounts/dist/prod/ gs://accounts.punch-agency.com && gsutil -m acl set -R -a public-read gs://accounts.punch-agency.com",
+    "deploy.data": "npm run build.prod.data && gsutil rsync -R punch-data/dist/prod/ gs://data.punch-agency.com && gsutil -m acl set -R -a public-read gs://data.punch-agency.com",
+    "deploy.prop": "npm run build.prod.prop && gsutil rsync -R punch-proposals/dist/prod/ gs://proposals.punch-agency.com && gsutil -m acl set -R -a public-read gs://proposals.punch-agency.com",
+    "deploy.cand": "npm run build.prod.cand && gsutil rsync -R punch-candidates/dist/prod/ gs://candidates.punch-agency.com && gsutil -m acl set -R -a public-read gs://candidates.punch-agency.com"
+  },
+  "author": "Punch agency",
+  "dependencies": {
+    "concurrently": "^2.1.0"
+  }
+}

@@ -1,0 +1,113 @@
+@import '../kit/_variables.scss';
+
+/*-- PROPOSAL GRID --*/
+.elements-grid {
+  &.Proposal {
+    ul li .box {
+      position: relative;
+      text-align: left;
+      height: 210px;
+      max-height: 210px;
+      padding: 15px;
+      p:nth-of-type(1) {
+        max-width: 70%;
+        font-size: 22px;
+        font-weight: inherit;
+        font-family: $font-bold;
+        color: $Black;
+        line-height: 26px;
+      }
+      p:nth-of-type(1):after {
+        display: block;
+        position: relative;
+        left: 0px;
+        width: 40px;
+        height: 3px;
+        margin-bottom: 35px;
+        margin-top: 10px;
+        content: "";
+        background: #ffd400;
+      }
+      &:hover {
+        cursor: pointer;
+        border: 1px solid #ccc;
+        @include box-shadow(4px, 10px, 0.085);
+      }
+      .bottom-info {
+        position: absolute;
+        left: 15px;
+        bottom: 15px;
+        p {
+          font-size: 13px;
+          font-weight: inherit;
+          font-family: $font-semibold;
+          padding-top: 4px;
+          color: $Grey-3;
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+    button {
+      margin-top: 15px;
+      height:36px;
+    }
+  }
+}
+/*-- PROPOSAL TABLE --*/
+.proposal-table {
+  td,th {
+    &:first-child {
+      padding-left: 35px;
+      width: 30%;
+      @media all and (max-width: 1100px) {
+        padding-left: 10px;
+      }
+    }
+    &:nth-child(2) {
+      width: 30%;
+      @media all and (max-width: 768px) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 15%;
+      }
+      @media all and (max-width: 480px) {
+        display: none;
+      }
+    }
+    &:nth-child(3) {
+      width: 14%;
+      @media all and (max-width: 1100px) {
+        padding-left: 5px;
+      }
+      @media all and (max-width: 768px) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      @media all and (max-width: 480px) {
+        width: 14%;
+      }
+    }
+    &:nth-child(4) {
+      width: 25%;
+      @media all and (max-width: 1100px) {
+        text-align: center;
+      }
+      @media all and (max-width: 768px) {
+        width: 25%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      @media all and (max-width: 480px) {
+        display: none;
+      }
+    }
+    &:last-child {
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+@import '../kit/_variables.scss';
+
+.companies-wrap {
+  .floated-navigation {
+    position: relative;
+    .dropdown {
+      float: right;
+      margin-left: 10px;
+      .btn {
+        min-width: 145px;
+      }
+    }
+    .dropdown-menu {
+      top: 37px;
+    }
+    .searchbar {
+      width: 250px;
+      margin: 0px 13px;
+      input {
+        padding: 12px 13px;
+      }
+    }
+
+    .multi-select {
+      position: absolute;
+      right: 785px;
+      z-index: 1000;
+
+      .ui-select-choices {
+        top:auto;
+      }
+    }
+  }
+
+  .companies-per-page-drp {
+    position: absolute;
+    top: 48px;
+    right: 25px;
+
+    .btn-default {
+      border: none;
+      box-shadow: none;
+      outline: none;
+      background-color: transparent !important;
+      float: right;
+    }
+    ul {
+      top: 30px !important;
+      left: 10px;
+    }
+    .dropdown {
+      min-width: 180px;
+      &.open {
+        .caret {
+          transform: rotate(0deg);
+        }
+      }
+      .caret {
+        position: relative;
+        transform: rotate(90deg);
+        top: -1px;
+      }
+    }
+  }
+
+  .companies-table {
+    table td {
+      padding-top: 2px;
+      padding-bottom: 3px;
+    }
+  }
+}

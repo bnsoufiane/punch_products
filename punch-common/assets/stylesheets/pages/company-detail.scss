@@ -1,0 +1,151 @@
+@import '../kit/_variables.scss';
+
+.company-detail {
+  margin-bottom: 100px;
+  .container {
+    width: 680px;
+    margin: 0 auto;
+  }
+  .social-icons {
+    i {
+      font-style: normal;
+      color: #585F69;
+      font-size: 13px;
+    }
+  }
+  .header {
+    height: 205px;
+    margin: -60px 0px 40px;
+    padding: 114px 0px 0px;
+    background: #f8f8f8;
+    .avatar {
+      position: relative;
+      display: inline-block;
+      width: 118px;
+      height: 118px;
+      border-radius: 3px;
+      line-height: 118px;
+      text-align: center;
+      background: #fff;
+      img {
+        width: 100px;
+        max-height: 118px;
+        border-radius: 3px;
+        vertical-align: middle;
+      }
+      &:after {
+        @include avatar-border(1px, 0.1, 3px);
+      }
+    }
+    h2 {
+      display: inline-block;
+      margin: 0 20px;
+      font-size: 30px;
+      position: relative;
+      font-family: $font-semibold;
+      color: #3B3D42;
+      top: 4px;
+    }
+    .social-icons {
+      float: right;
+      margin-top: 43px;
+      i {
+        margin-left: 7px;
+      }
+      .cb {
+        font-weight: bold;
+      }
+    }
+  }
+  .description {
+    color: #707070;
+  }
+  .categories {
+    span {
+      display: inline-block;
+      margin: 2px 8px 0px 0px;
+      padding: 2px 5px;
+      border: 1px solid #E3E3E3;
+      border-radius: 2px;
+      color: #A0A0A0;
+    }
+  }
+  .section-header {
+    display: block;
+    float: left;
+    width: 100%;
+    height: 30px;
+    margin-top: 22px;
+    .section-title {
+      font-size: 16px;
+      color: #555555;
+      font-family: $font-semibold;
+      padding: 8px 0px 8px;
+      display: inline-block;
+      float: left;
+    }
+    .icon {
+      display: inline-block;
+      font-size: 12px;
+      color: #ccc;
+      margin: 8px 20px 0px 8px;
+      cursor: pointer;
+      &:hover {
+        color: #000;
+      }
+    }
+    h3 {
+      color: #BAC1C9;
+      font-size: 14px;
+      display: inline-block;
+      float: left;
+      margin: 0px;
+      padding: 8px;
+    }
+  }
+  .details {
+    padding: 0px;
+    margin-bottom: 20px;
+    ul {
+      padding: 0px;
+      li {
+        display: block;
+        width: 100%;
+        float: left;
+        label {
+          width: 94px;
+          font-family: $font-reg;
+          color: #C3C3C3;
+          float: left;
+        }
+        span {
+          display: inline-block;
+          max-width: 216px;
+          width: 216px;
+        }
+        span, i {
+          font-family: $font-reg;
+          font-style: normal;
+        }
+      }
+    }
+  }
+  .team {
+    padding: 0px;
+    margin: 0px;
+    li {
+      padding: 0px;
+      min-height: 88px;
+      h4 {
+        font-size: 14px;
+        color: #434343;
+        margin: 8px 0px 0px;
+      }
+      p {
+        color: #A0A4A9;
+        font-size: 13px;
+        margin: 0px 0px 2px;
+      }
+    }
+  }
+}

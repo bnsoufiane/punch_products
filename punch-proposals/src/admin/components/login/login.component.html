@@ -1,0 +1,16 @@
+<div id="wrapper">
+  <div class="login-page">
+    <!-- LEFT SIDE -->
+    <div class="left-side">
+      <div class="loginform">
+        <img alt="Punch Logo" height="26" src="admin/assets/images/shared/logo-navbar-2x.png" width="73" height="25">
+        <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+        <input type="text" placeholder="Username" [(ngModel)]="username">
+        <input type="password" placeholder="Password" [(ngModel)]="password">
+        <button class="btn btn-primary" (click)="onSubmit(username, password)">SIGN IN</button>
+      </div>
+    </div>
+    <!-- RIGHT SIDE -->
+    <div class="right-side"></div>
+  </div>
+</div>

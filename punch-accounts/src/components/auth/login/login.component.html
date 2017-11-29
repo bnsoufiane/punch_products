@@ -1,0 +1,10 @@
+<div class="loginform">
+  <img alt="Punch Logo" height="26"
+    src="common/images/logo-navbar-2x.png" width="25" height="25" />
+  <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+  <input type="text" placeholder="Email" [(ngModel)]="email" />
+  <input type="password" placeholder="Password"
+    [(ngModel)]="password" (keyup.enter)="onSubmit()" />
+  <button class="btn btn-primary" (click)="onSubmit()">SIGN IN</button>
+  <button (click)="goToSignup()" class="btn btn-secondary">SIGN UP</button>
+</div>

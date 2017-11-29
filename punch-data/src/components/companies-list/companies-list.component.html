@@ -1,0 +1,124 @@
+<div id="wrapper" class="companies-wrap">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+      <div class="floated-navigation row">
+        <div class="col-sm-2">
+          <h2>Companies</h2>
+        </div>
+        <div class="right-side col-sm-10">
+          <ar-list-dropdown-filter
+            [elements]="[{text:'Export Filtered'}]" [defaultText]="'Export All'"
+            (dropdownFilterChanged)="exportAsCSV($event)">
+          </ar-list-dropdown-filter>
+          <button *ngIf="companiesToAdd.length > 0"
+                  class="btn btn-secondary pull-right"
+                  (click)="toggleAddToListModal()">
+            Add to list
+          </button>
+          <ar-list-search
+            [placeholder]="'Filter Companies..'"
+            (queryChanged)="query = $event; updateSelectedCompanies();">
+          </ar-list-search>
+          <ar-list-dropdown-filter
+            [elements]="employeeIntervals" [defaultText]="'Any Size'"
+            [value]="filters.q['size~']"
+            (dropdownFilterChanged)="setEmployeeSize($event)">
+          </ar-list-dropdown-filter>
+          <ar-list-dropdown-filter
+            [elements]="fundingIntervals" [defaultText]="'Any Funding'"
+            [value]="filters.q['funding~']"
+            (dropdownFilterChanged)="setFunding($event)">
+          </ar-list-dropdown-filter>
+          <ar-list-multi-select-filter
+            [elements]="markets"
+            [defaultText]="'Any Market'"
+            [initSelectedItems]="filters.q.markets"
+            (multiSelectFilterChanged)="setMarket($event)"
+            *ngIf="markets.length > 0">
+          </ar-list-multi-select-filter>
+        </div>
+      </div>
+    </ar-header>
+    <!-- BODY -->
+    <div class="elements-wrp">
+      <div class="elements col-sm-12">
+        <div class="table-responsive elements-table companies-table">
+          <table>
+            <!-- TABLEHEAD -->
+            <thead>
+              <th></th>
+              <th>Name</th>
+              <th>website</th>
+              <th>Founders</th>
+              <th>Headquarters</th>
+              <th>Employees</th>
+              <th>revenue</th>
+              <th>Funding</th>
+              <th>Founded</th>
+              <th>Markets</th>
+              <th></th>
+            </thead>
+            <!-- TABLE ROW -->
+            <tr *ngFor="#company of companies |
+                    queryFilter:queryTargets:query |
+                    paginate:currentPage"
+                (click)="onViewCompany(company._id)">
+              <td (click)="$event.stopPropagation();">
+                <input type="checkbox" name="compToAddToList" title="Add to selection"
+                       [(ngModel)]="company.selected" (ngModelChange)="onCheckboxChange(company)">
+              </td>
+              <td>
+                <a href="{{getCompanyURL(company)}}" (click)="$event.stopPropagation()" target="_blank">{{company.companyName}}</a>
+              </td>
+              <td><a href="{{company.websiteLink | urlFilter:'url'}}" (click)="$event.stopPropagation()" target="_blank">
+                {{company.websiteLink | urlFilter:'text'}}
+              </a></td>
+              <td><span *ngFor="#founder of company.foundersNames, #i = index"><i *ngIf="i !== 0">, </i>{{founder}}</span></td>
+              <td>{{company.cityHeadQuartersIn}}</td>
+              <td>{{company.numberOfEmployees | formatNumber:true}}</td>
+              <td>&#36;{{company.revenue | formatNumber}}</td>
+              <td>
+                <div *ngIf="company.fundingRounds">Rounds: {{company.fundingRounds}}</div>
+                <div *ngIf="isValidAmount(company.fundingAmount)">
+                  Amount: &#36;{{company.fundingAmount | formatNumber}}
+                </div>
+                <div *ngIf="company.lastFundingDate">last funding : {{company.lastFundingDate}}</div>
+              </td>
+              <td>{{company.dateFounded}}</td>
+              <td><span *ngFor="#cat of company.categories, #i = index"><i *ngIf="i !== 0">, </i>{{cat}}</span></td>
+              <td class="text-center">
+                <button class="btn btn-secondary table-button pull-right"
+                        (click)="toggleEditCompanyModal(company); $event.stopPropagation();">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </table>
+          <!-- FOOTER -->
+          <div class="table-footer">
+            <p class="results">{{currentPage?.totalItems}} Results</p>
+            <div class="page-size">
+              <ar-list-dropdown-filter
+                  [elements]="resultsPerPage" [defaultText]="'Results Per Page'"
+                  [value]="currentPage.itemsPerPage"
+                  (dropdownFilterChanged)="updateResultsPerPage($event)">
+              </ar-list-dropdown-filter>
+            </div>
+          </div>
+          <!-- PAGINATION -->
+          <ar-list-pagination [config]="currentPage" (pageChanged)="pageChanged($event)"></ar-list-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ar-edit-company-modal
+    [company]="editableCompany" [showModal]="showEditCompanyModal"
+    (closed)="toggleEditCompanyModal()" (editedCompany)="saveEdits($event)">
+  </ar-edit-company-modal>
+  <ar-add-to-list-modal
+    [showModal]="showAddToListModal" [companiesToAdd]="companiesToAdd"
+    (closed)="toggleAddToListModal()">
+  </ar-add-to-list-modal>
+
+</div>

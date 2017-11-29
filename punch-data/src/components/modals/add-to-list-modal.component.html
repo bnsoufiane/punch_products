@@ -1,0 +1,51 @@
+<div class="modal-wrp" [class.hidden]="!showModal" (click)="cancelAction()">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block" (click)="$event.stopPropagation()">
+    <div class="modal-body-content">
+      <div class="row list-controls">
+        <h2>Add To List</h2>
+        <div class="col-sm-12">
+          <input type="text" placeholder="Search or Create List..." id="listName" title="Search or create list" [(ngModel)]="newListName">
+        </div>
+      </div>
+      <div class="table-responsive elements-table" *ngIf="lists.length > 0">
+        <table>
+          <!-- TABLEHEAD -->
+          <thead>
+            <tr>
+              <th>List</th>
+              <th>Created</th>
+              <th>Shared With</th>
+              <th></th>
+            </tr>
+          </thead>
+          <!-- TABLE ROW -->
+          <tr *ngFor="#list of lists |
+                    queryFilter:['name']:newListName |
+                    paginate:currentPage"
+              [ngClass]="{updated:list.updated, loading:list.loading}">
+            <td><a href="#" target="_blank">{{list.name}}</a> ({{list.companies.length}})</td>
+            <td>{{list.createdAt | formatDate}}</td>
+            <td>-</td>
+            <td>
+              <span class="loading pull-right"><i class="icon ion-load-a"></i></span>
+              <span class="updated pull-right"><i class="icon ion-ios-checkmark-empty"></i></span>
+              <button class="btn btn-secondary table-button pull-right"
+                      (click)="updateList(list)">
+                Add to list
+              </button>
+            </td>
+          </tr>
+        </table>
+        <ar-list-pagination
+          [config]="currentPage"
+          (pageChanged)="currentPage = $event">
+        </ar-list-pagination>
+      </div>
+      <div *ngIf="(newListName || newListName.length > 2)">
+        <span>Create: {{newListName}}</span>
+        <button class="btn btn-secondary pull-right" (click)="createList()"> Create List </button>
+      </div>
+    </div>
+  </div>
+</div>

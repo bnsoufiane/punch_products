@@ -1,0 +1,18 @@
+{
+  "name": "fonts",
+  "homepage": "https://github.com/punchagency/punch-products/punch-common/fonts",
+  "authors": [
+    "Verdi Ergun (verdiergun@punch-agency.com)"
+  ],
+  "description": "Common fonts used in Punch products.",
+  "main": "",
+  "license": "Commercial",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

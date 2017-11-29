@@ -1,0 +1,85 @@
+<div id="wrapper" class="companies-wrap">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+      <div class="floated-navigation row">
+        <div class="col-sm-2">
+          <h2>Lists</h2>
+        </div>
+        <div class="right-side col-sm-10">
+          <button class="btn btn-secondary pull-right"
+                  (click)="showCreateListModal = !showCreateListModal">
+            Create List
+          </button>
+          <ar-list-search
+            [placeholder]="'Filter Lists..'"
+            (queryChanged)="query = $event;">
+          </ar-list-search>
+        </div>
+      </div>
+    </ar-header>
+    <!-- BODY -->
+    <div class="elements-wrp">
+      <div class="elements col-sm-12">
+        <div class="table-responsive elements-table jobs-table">
+          <table>
+            <!-- TABLEHEAD -->
+            <thead>
+            <tr>
+              <th>List</th>
+              <th>Companies</th>
+              <th>Contacts</th>
+              <th>Created</th>
+              <th>Shared With</th>
+              <th></th>
+            </tr>
+            </thead>
+            <!-- TABLE ROW -->
+            <tr *ngFor="#list of lists |
+                    queryFilter:queryTargets:query |
+                    paginate:currentPage"
+                [ngClass]="{updated:list.updated, loading:list.loading}">
+              <td><a [routerLink]="['ListPage', {id:list?._id}]">{{list?.name}}</a></td>
+              <td>{{list?.companies.length}}</td>
+              <td>-</td>
+              <td>{{list?.createdAt | formatDate}}</td>
+              <td>-</td>
+              <td>
+                <button class="btn btn-secondary table-button pull-right"
+                        (click)="showDeleteListModal(list); $event.stopPropagation();">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </table>
+          <!-- FOOTER -->
+          <div class="table-footer">
+            <p class="results">{{lists?.length}} Results</p>
+            <div class="page-size">
+              <ar-list-dropdown-filter
+                [elements]="resultsPerPage" [defaultText]="'Results Per Page'"
+                (dropdownFilterChanged)="updateResultsPerPage($event)">
+              </ar-list-dropdown-filter>
+            </div>
+          </div>
+          <!-- PAGINATION -->
+          <ar-list-pagination [config]="currentPage" (pageChanged)="currentPage = $event"></ar-list-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM MODAL -->
+  <ar-confirmation-modal
+          [showModal]="showConfirmModal"
+          [message]="'Are you sure you want to delete this list?'"
+          [cancelLabel]="'Cancel'"
+          [positiveLabel]="'Yes'"
+          (closed)="confirmDelete($event)">
+  </ar-confirmation-modal>
+  <!-- CONFIRM MODAL -->
+  <ar-create-list-modal
+          [showModal]="showCreateListModal"
+          (closed)="listCreated($event)">
+  </ar-create-list-modal>
+</div>

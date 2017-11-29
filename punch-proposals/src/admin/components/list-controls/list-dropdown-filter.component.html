@@ -1,0 +1,12 @@
+<div class="dropdown" dropdown>
+  <button class="btn btn-default dropdown-toggle" type="button" id="filter-dropdown" dropdownToggle>
+    {{getDefaultText()}}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="filter-dropdown">
+    <li><a class="dropdown-item" href (click)="onDropdownChanged(null)">{{defaultText}}</a></li>
+    <li *ngFor="#elmt of elements">
+      <a class="dropdown-item" href (click)="onDropdownChanged(elmt)">{{elmt[mainIndex]}}</a>
+    </li>
+  </ul>
+</div>

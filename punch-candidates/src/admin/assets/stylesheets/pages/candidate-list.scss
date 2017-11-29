@@ -1,0 +1,183 @@
+@import '../kit/_variables.scss';
+
+/*-- SIDEBAR --*/
+.candidate-roles {
+  padding: 0px;
+  margin-left: -20px;
+  .position-list {
+    list-style: none;
+    margin: 0;
+    padding: 70px 30px 50px 0;
+    @media all and (max-width: 991px) {
+      padding-right: 0;
+      padding-top: 20px;
+    }
+    li {
+      border-radius: 2px;
+      color: #949494;
+      cursor: pointer;
+      font-size: 13px;
+      margin: 0;
+      padding: 12px 0 12px 30px;
+      position: relative;
+      border: 1px solid #fff;
+      border-left: none;
+      @include transition-linear(0.12s);
+      a {
+        color: inherit;
+        font-family: $font-reg;
+        font-size: inherit;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      &.active {
+        border: 1px solid #000;
+        color: #000;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-left: none;
+        &:hover {
+          border: 1px solid #000;
+          border-left: none;
+        }
+      }
+      &:hover {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-left: none;
+      }
+    }
+  }
+}
+/*-- CANDIDATE GRID --*/
+.elements-grid {
+  &.Candidate {
+    ul li .box {
+      padding: 25px 20px;
+      &:hover {
+        cursor: pointer;
+        border: 1px solid $Grey-5;
+        @include box-shadow(4px, 10px, 0.085);
+      }
+      .avatar-wrp {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        margin: 0 auto;
+        margin-bottom: 12px;
+        img {
+          width: 90px;
+          border-radius: 50%;
+        }
+        &:after {
+          @include avatar-border(2px, 0.13, 50%);
+        }
+      }
+      p:nth-of-type(1) {
+        font-size: 16px;
+        font-weight: inherit;
+        font-family: $font-bold;
+        color: $Black;
+      }
+      p:nth-of-type(2) {
+        font-size: 13px;
+        font-weight: inherit;
+        font-family: $font-semibold;
+        padding-top: 4px;
+        color: $Grey-1;
+      }
+      p:nth-of-type(2):after {
+        display: block;
+        position: relative;
+        width: 40px;
+        height: 3px;
+        margin: 10px auto;
+        content: "";
+        background: #ffd400;
+      }
+    }
+    button {
+      margin-top: 10px;
+      font-size: 11px;
+      height:36px;
+    }
+  }
+}
+/*-- CANDIDATE TABLE --*/
+.candidate-table {
+  padding: 0px;
+  td,th {
+    &:first-child {
+      padding-left: 35px;
+      width: 24%;
+      @media all and (max-width: 1100px) {
+        padding-left: 10px;
+      }
+    }
+    .avatar-wrp {
+      position: relative;
+      border-radius: 50%;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin-right: 15px;
+      overflow: hidden;
+      vertical-align: middle;
+      img {
+        max-width: 30px;
+        max-height: 30px;
+        width: 30px;
+        height: 30px;
+      }
+      &:after {
+        @include avatar-border(1px, 0.13, 50%);
+      }
+    }
+    &:nth-child(2) {
+      width: 19%;
+      @media all and (max-width: 768px) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 15%;
+      }
+      @media all and (max-width: 480px) {
+        display: none;
+      }
+    }
+    &:nth-child(3) {
+      width: 20%;
+      @media all and (max-width: 1100px) {
+        padding-left: 5px;
+      }
+      @media all and (max-width: 768px) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      @media all and (max-width: 480px) {
+        width: 20%;
+      }
+    }
+    &:nth-child(4) {
+      width: 8%;
+      @media all and (max-width: 1100px) {
+        text-align: center;
+      }
+      @media all and (max-width: 768px) {
+        width: 8%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      @media all and (max-width: 480px) {
+        display: none;
+      }
+    }
+    &:last-child {
+      text-align: right;
+    }
+  }
+}

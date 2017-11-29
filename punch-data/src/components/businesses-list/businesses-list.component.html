@@ -1,0 +1,86 @@
+<div id="wrapper" class="companies-wrap">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+      <div class="floated-navigation row">
+        <div class="col-sm-2">
+          <h2>Local Businesses</h2>
+        </div>
+        <div class="right-side col-sm-10">
+          <ar-list-dropdown-filter
+            [elements]="[{text:'Export Filtered'}]" [defaultText]="'Export All'"
+            (dropdownFilterChanged)="exportAsCSV($event)">
+          </ar-list-dropdown-filter>
+          <ar-list-search
+            [placeholder]="'Filter Local Businesses..'"
+            (queryChanged)="query = $event; updateSelectedBusinesses();">
+          </ar-list-search>
+          <ar-list-multi-select-filter
+            [elements]="cities"
+            [defaultText]="'Any City'"
+            (multiSelectFilterChanged)="setCity($event); updateSelectedBusinesses();"
+            *ngIf="cities.length > 0">
+          </ar-list-multi-select-filter>
+          <ar-list-multi-select-filter
+            [elements]="markets"
+            [defaultText]="'Any Market'"
+            (multiSelectFilterChanged)="setMarket($event); updateSelectedBusinesses();"
+            *ngIf="markets.length > 0">
+          </ar-list-multi-select-filter>
+        </div>
+      </div>
+    </ar-header>
+    <!-- BODY -->
+    <div class="elements-wrp">
+      <div class="elements col-sm-12">
+        <div class="table-responsive elements-table companies-table">
+          <table>
+            <!-- TABLEHEAD -->
+            <thead>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Website</th>
+              <th>Phone</th>
+              <th>Categories</th>
+              <th>Is Chain</th>
+              <th>Last Updated</th>
+            </thead>
+            <!-- TABLE ROW -->
+            <tr *ngFor="#biz of businesses |
+                    queryFilter:queryTargets:query |
+                    marketsFilter:selectedMarkets |
+                    cityFilter:selectedCities |
+                    paginate:currentPage">
+              <td>
+                <a href="{{biz.yelpUrl}}" target="_blank">{{biz.name}}</a>
+              </td>
+              <td>
+                <span *ngIf="biz.street">{{biz.street}}<br></span>
+                <span *ngIf="biz.city">{{biz.city}}, </span>
+                <span *ngIf="biz.state">{{biz.state}}</span>
+                <span *ngIf="biz.postalCode">{{biz.postalCode}}</span>
+              </td>
+              <td><a href="{{biz.website | urlFilter:'url'}}" target="_blank">{{biz.website | urlFilter:'text'}}</a></td>
+              <td>{{biz.phone}}</td>
+              <td><span *ngFor="#cat of biz.categories, #i = index"><i *ngIf="i !== 0">, </i>{{cat}}</span></td>
+              <td>{{(biz.partOfChain)?'Yes':'No'}}</td>
+              <td>{{stringAsDate(biz.updatedAt) | date:"MM/dd/yy"}}</td>
+            </tr>
+          </table>
+          <!-- FOOTER -->
+          <div class="table-footer">
+            <p class="results">{{currentPage?.totalItems}} Results</p>
+            <div class="page-size">
+              <ar-list-dropdown-filter
+                [elements]="resultsPerPage" [defaultText]="'Results Per Page'"
+                (dropdownFilterChanged)="updateResultsPerPage($event)">
+              </ar-list-dropdown-filter>
+            </div>
+          </div>
+          <!-- PAGINATION -->
+          <ar-list-pagination [config]="currentPage" (pageChanged)="pageChanged($event)"></ar-list-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+
+/*-- ACCOUNT SETTINGS VIEW --*/
+.my-account {
+  .container {
+    width: 680px;
+    margin: 0 auto;
+  }
+  .row {
+    margin-top: 7px;
+  }
+  .header {
+    height: 170px;
+    margin: -60px 0px 20px;
+    background: #f8f8f8;
+    h2 {
+      margin: 110px 0px;
+      font-size: 28px;
+    }
+  }
+  .file-wrp {
+    display: block;
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0px;
+    padding: 0px;
+    border: solid 1px #d6d6d6;
+    img {
+      position: relative;
+      width: 100%;
+      z-index: 2;
+    }
+  }
+  .file-up {
+    position: absolute;
+    top: 20%;
+    z-index: 1;
+  }
+  .btn-full {
+    width: 100%;
+  }
+
+  .avatar-row {
+    margin: auto;
+    position: relative;
+    display: block;
+    padding: 10px 0 10px;
+    background-color: #f8f8f8;
+  }
+
+  .linked-accounts {
+    .row {
+      border-bottom: solid 1px #eee;
+      padding: 5px 0px;
+      .name {
+        float: left;
+        padding: 0px;
+      }
+      .right-side {
+        float: right;
+        padding: 0px;
+      }
+    }
+  }
+
+}

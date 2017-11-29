@@ -1,0 +1,27 @@
+<div class="elements-grid Candidate">
+    <ul>
+        <li *ngFor="#candidate of candidates |
+                    candidateQueryFilter:filters.query |
+                    candidateRoleFilter:filters.role |
+                    paginate:currentPage"
+            (click)="onEditCandidate(candidate._id)" class="col-sm-3">
+            <div class="box">
+                <div class="avatar-wrp" *ngIf="candidate?.avatar?.thumbnail">
+                    <img src="{{candidate?.avatar?.thumbnail}}" alt="">
+                </div>
+                <p>{{candidate.fullname}}</p>
+                <p>{{candidate.roles[0] | roleText:roles}}</p>
+                <p>{{candidate.location}}</p>
+                <p>{{standardDate(candidate.createdAt)}}</p>
+                <button class="btn btn-secondary" (click)="onEditCandidate(candidate._id); $event.stopPropagation();">Edit</button>
+                <button class="btn btn-secondary"
+                    (click)="onViewCandidate(candidate._id); $event.stopPropagation();">
+                    View Profile
+                </button>
+            </div>
+        </li>
+    </ul>
+    <div>
+    <ar-list-pagination (pageChanged)="currentPage = $event"></ar-list-pagination>
+    </div>
+</div>

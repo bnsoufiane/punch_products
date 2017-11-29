@@ -1,0 +1,88 @@
+.auth-page {
+  /*-- LEFT SIDE --*/
+  .left-side {
+    display: inline-block;
+    height: 100vh;
+    position: relative;
+    vertical-align: top;
+    width: 50%;
+    @media all and (max-width: 768px) {
+      width: 100%;
+    }
+  }
+  /*-- RIGHT SIDE --*/
+  .right-side {
+    background: url('../../common/images/auth/auth-portrait.jpg') no-repeat center;
+    background-size: cover;
+    display: inline-block;
+    font-size: 0;
+    height: 100vh;
+    margin-left: -4px;
+    vertical-align: top;
+    width: 50%;
+    @media all and (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+/*-- LOGIN FORM --*/
+.loginform {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin: auto;
+  transform: translateY(-50%);
+  width: 290px;
+  @media all and (max-width: 768px) {
+    padding: 0 10px;
+  }
+  img {
+    display: block;
+    margin-bottom: 34px;
+  }
+  input {
+    background: #fdfdfd;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-family: Patron-Medium;
+    color: #000;
+    font-size: 13px;
+    height: auto;
+    padding: 15px;
+    width: 100%;
+  }
+  input[type="text"] {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  ::-webkit-input-placeholder {
+    color: #8e8e8e;
+    font-size: 13px;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: #8e8e8e;
+    font-size: 13px;
+  }
+  ::-moz-placeholder {  /* Firefox 19+ */
+    color: #8e8e8e;
+    font-size: 13px;
+  }
+  :-ms-input-placeholder {
+    color: #8e8e8e;
+    font-size: 13px;
+  }
+  input[type="password"] {
+    font-size: 13px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+  button {
+    font-size: 13px;
+    height: 50px;
+    letter-spacing: 5px;
+    margin-top: 34px;
+    width: 100%;
+  }
+}

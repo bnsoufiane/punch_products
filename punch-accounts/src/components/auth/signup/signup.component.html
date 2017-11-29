@@ -1,0 +1,15 @@
+<div class="loginform">
+  <img alt="Punch Logo" height="26"
+    src="common/images/logo-navbar-2x.png" width="25" height="25" />
+  <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+  <input type="text" placeholder="First Name" [(ngModel)]="firstName" />
+  <input type="text" placeholder="Last Name" [(ngModel)]="lastName" />
+  <input type="text" placeholder="Email" [(ngModel)]="email" />
+  <input type="password" placeholder="Password" [(ngModel)]="password" />
+  <input type="password" placeholder="Confirm Password"
+    [(ngModel)]="confirmPassword" />
+  <button class="btn btn-primary" (click)="submit()"
+    [attr.disabled]="processing? true:null">SIGN UP</button>
+  <!--<button [routerLink]="['Login']" class="btn btn-secondary">SIGN IN</button>-->
+  <button (click)="goToLogin()" class="btn btn-secondary">SIGN IN</button>
+</div>

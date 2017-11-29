@@ -1,0 +1,31 @@
+<div class="modal-wrp" [class.hidden]="!showModal" (click)="cancelAction()">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block modal-inserts" (click)="$event.stopPropagation()">
+    <div class="modal-body-content">
+      <div class="row list-controls">
+        <ar-list-search (queryChanged)="query = $event"></ar-list-search>
+      </div>
+      <div class="table-responsive elements-table">
+        <table>
+          <!-- TABLEHEAD -->
+          <thead>
+            <th>title</th>
+            <th>Excerpt</th>
+          </thead>
+          <!-- TABLE ROW -->
+          <tr *ngFor="#element of inserts |
+                 insertQueryFilter:query |
+                 paginate:currentPage"
+              (click)="addInsert(element)">
+            <td>{{element.title}}</td>
+            <td>{{element.paragraph | excerpt:100}}</td>
+          </tr>
+        </table>
+        <ar-list-pagination
+          [config]="currentPage"
+          (pageChanged)="currentPage = $event">
+        </ar-list-pagination>
+      </div>
+    </div>
+  </div>
+</div>

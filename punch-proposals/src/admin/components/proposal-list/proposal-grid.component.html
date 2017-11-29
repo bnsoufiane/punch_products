@@ -1,0 +1,21 @@
+<div class="elements-grid Proposal">
+    <ul>
+        <li *ngFor="#elmt of proposals |
+                    proposalQueryFilter:query |
+                    paginate:currentPage"
+            (click)="onEditProposal(elmt._id)" class="col-sm-3">
+            <div class="box">
+                <p>{{elmt.name}}</p>
+                <div class="bottom-info">
+                  <p>{{standardDate(elmt.createdAt)}}</p>
+                  <button class="btn btn-secondary" (click)="onEditProposal(elmt._id); $event.stopPropagation();">Edit</button>
+                  <button class="btn btn-secondary" (click)="onViewProposal(elmt._id); $event.stopPropagation();">
+                    View Proposal
+                  </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <ar-list-pagination [config]="currentPage" (pageChanged)="currentPage = $event"></ar-list-pagination>
+</div>

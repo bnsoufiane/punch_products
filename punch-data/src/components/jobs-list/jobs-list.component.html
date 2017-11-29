@@ -1,0 +1,65 @@
+<div id="wrapper" class="companies-wrap">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+      <div class="floated-navigation row">
+        <div class="col-sm-2">
+          <h2>Jobs</h2>
+        </div>
+        <div class="right-side col-sm-10">
+          <ar-list-search
+            [placeholder]="'Filter Jobs..'"
+            (queryChanged)="query = $event;">
+          </ar-list-search>
+        </div>
+      </div>
+    </ar-header>
+    <!-- BODY -->
+    <div class="elements-wrp">
+      <div class="elements col-sm-12">
+        <div class="table-responsive elements-table jobs-table">
+          <table>
+            <!-- TABLEHEAD -->
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Company</th>
+                <th>Date Posted</th>
+                <th>Location</th>
+                <th>Wage</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <!-- TABLE ROW -->
+            <tr *ngFor="#job of jobs |
+                    queryFilter:queryTargets:query |
+                    paginate:currentPage">
+              <td>
+                <a href="{{job.jobLink}}" target="_blank">{{job.title}}</a>
+              </td>
+              <td>
+                <a href="{{job.companyLink}}" target="_blank"> {{job.company}}</a>
+              </td>
+              <td>{{job.date | formatDate}}</td>
+              <td>{{job.location}}</td>
+              <td>{{job.wage}}</td>
+              <td>{{job.description}}</td>
+            </tr>
+          </table>
+          <!-- FOOTER -->
+          <div class="table-footer">
+            <p class="results">{{currentPage?.totalItems}} Results</p>
+            <div class="page-size">
+              <ar-list-dropdown-filter
+                [elements]="resultsPerPage" [defaultText]="'Results Per Page'"
+                (dropdownFilterChanged)="updateResultsPerPage($event)">
+              </ar-list-dropdown-filter>
+            </div>
+          </div>
+          <!-- PAGINATION -->
+          <ar-list-pagination [config]="currentPage" (pageChanged)="pageChanged($event)"></ar-list-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

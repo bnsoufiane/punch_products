@@ -1,0 +1,23 @@
+@import '_variables.scss';
+
+/*--DROPDOWNS --*/
+.multi-select {
+  position: relative;
+}
+.ui-select-search {
+  height: 30px!important;
+}
+.ui-select-multiple.ui-select-bootstrap {
+  .btn-secondary {
+    padding: 6px 15px;
+  }
+}
+.ui-select-bootstrap {
+  .ui-select-choices-row a {
+    color: $Grey-3;
+  }
+}
+.ui-select-bootstrap .ui-select-choices-row.active>a {
+  background-color: #f5f5f5;
+  color: $Grey-1;
+}

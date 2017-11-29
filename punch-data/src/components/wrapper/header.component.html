@@ -1,0 +1,38 @@
+<!-- NAV -->
+<nav class="navbar clearfix" role="navigation">
+  <!-- LEFT SIDE -->
+  <div class="leftside">
+    <a [routerLink]="['Home']" class="logo">
+      <img src="common/images/logo-navbar-2x.png" alt="Punch Logo" width="22" height="22">
+    </a>
+    <!-- <i class="icon ion-ios-search-strong"></i> -->
+    <!--<input type="text" placeholder="Search Companies...">-->
+  </div>
+  <!-- RIGHT SIDE -->
+  <div class="rightside">
+    <li dropdown>
+      <a href id="user-dropdown" dropdownToggle>
+        <i class="icon ion-chevron-down"></i>
+        <div class="avatar">
+          <img *ngIf="!!currentUser.avatar" src="{{currentUser.avatar.thumbnail}}" width="26" height="26">
+          <img *ngIf="!currentUser.avatar" src="admin/assets/images/shared/avatar.png" width="26" height="26">
+        </div>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="user-dropdown">
+        <li class="username">{{getCurrentUserName()}}</li>
+        <li><a class="dropdown-item" href="javascript:void(0);" (click)="openAccount()">Account</a></li>
+        <li><a class="dropdown-item" href="javascript:void(0);" (click)="openSubscription()">Subscription</a></li>
+        <li><a class="dropdown-item" href="javascript:void(0);" (click)="logOut()">Sign out</a></li>
+      </ul>
+    </li>
+  </div>
+  <!-- NAV -->
+  <div class="col-3 nav">
+    <li><a [routerLink]="['ListsList']" [ngClass]="{active: isActive('ListsList')}">Lists</a></li>
+    <li><a [routerLink]="['Home']" [ngClass]="{active: isActive('CompaniesList')}">Companies</a></li>
+    <li><a [routerLink]="['BusinessesList']" [ngClass]="{active: isActive('BusinessesList')}">Local Businesses</a></li>
+    <li><a [routerLink]="['JobsList']" [ngClass]="{active: isActive('JobsList')}">Jobs</a></li>
+  </div>
+</nav>
+<!-- SECONDARY NAV -->
+<ng-content></ng-content>

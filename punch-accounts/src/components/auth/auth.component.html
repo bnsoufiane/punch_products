@@ -1,0 +1,11 @@
+<div id="wrapper">
+  <div class="auth-page">
+    <!-- LEFT SIDE -->
+    <div class="left-side">
+      <ar-login *ngIf="children.login.active" (goTo)="goTo($event)"></ar-login>
+      <ar-signup *ngIf="children.signup.active" (goTo)="goTo($event)"></ar-signup>
+    </div>
+    <!-- RIGHT SIDE -->
+    <div class="right-side"></div>
+  </div>
+</div>

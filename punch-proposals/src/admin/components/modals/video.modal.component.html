@@ -1,0 +1,14 @@
+<div class="modal-wrp" [class.hidden]="!flag" (click)="toggleModalVisible(video)">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block work-modal video-modal" (click)="$event.stopPropagation()">
+    <video [src]="source" #video ar-myVideo (timeupdate)="onTimeupdate(video)"></video>
+    <button (click)="showVideo(video)" class="fa" [ngClass]="{'fa-play': video.paused , 'fa-pause': !video.paused}"></button>
+    <button (click)="toggleFullScreen(video)" class="fa fa-arrows-alt"></button>
+    <div class="time-controls">
+      <span class="video-duration" myHighlight>{{video?.duration | formatTime}}</span>
+      <div class="progress-bar-container">
+        <progressbar value="{{videoProgress}}" (click)="onSeekFrame($event, video)"></progressbar>
+      </div>
+    </div>
+  </div>
+</div>

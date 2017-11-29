@@ -1,0 +1,38 @@
+<div id="wrapper" class="proposal-list">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+      <div class="floated-navigation">
+        <div class="col-sm-6">
+          <h2>Proposals</h2>
+        </div>
+        <div class="right-side col-sm-6">
+          <button [routerLink]="['ProposalDetailAdd']" class="btn btn-primary">Create Proposal</button>
+        </div>
+      </div>
+    </ar-header>
+    <!-- PROPOSAL VIEW -->
+    <div class="floated-navigation row list-controls">
+      <div class="right-side col-sm-12">
+        <ar-table-grid-toggle (toggleClicked)="currentListType = $event"></ar-table-grid-toggle>
+        <ar-list-search (queryChanged)="query = $event"></ar-list-search>
+      </div>
+    </div>
+    <div class="elements-wrp">
+      <div class="elements col-sm-12">
+        <!-- TABLE -->
+        <ar-proposal-table
+          *ngIf="currentListType !== 'grid'"
+          [proposals]="proposals" [query]="query"
+          (viewProposalClicked)="viewProposal($event)" (editProposalClicked)="editProposal($event)">
+        </ar-proposal-table>
+        <!-- GRID -->
+        <ar-proposal-grid
+          *ngIf="currentListType === 'grid'"
+          [proposals]="proposals" [query]="query"
+          (viewProposalClicked)="viewProposal($event)" (editProposalClicked)="editProposal($event)">
+        </ar-proposal-grid>
+      </div>
+    </div>
+  </div>
+</div>

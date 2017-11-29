@@ -1,0 +1,26 @@
+{
+  "name": "punch-products-data",
+  "description": "Data project for punch products.",
+  "main": "src/index.html",
+  "authors": [
+    "Punch (http://www.punch-agency.com)"
+  ],
+  "license": "Commercial",
+  "homepage": "https://github.com/punchagency/punch-products",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "images": "../punch-common/assets/images/",
+    "fonts": "../punch-common/assets/fonts/",
+    "stylesheets": "../punch-common/assets/stylesheets/",
+    "components": "../punch-common/src/components/",
+    "interfaces": "../punch-common/src/interfaces/",
+    "utils": "../punch-common/src/utils/"
+  }
+}

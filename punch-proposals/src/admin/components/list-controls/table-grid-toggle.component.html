@@ -1,0 +1,10 @@
+<div class="table-grid-toggle">
+    <span
+        [ngClass]="{'glyphicon':true, 'glyphicon-th-large':true, active:currentListType !== 'table'}"
+        (click)="onToggleClicked('grid')"
+    ></span>
+    <span
+        [ngClass]="{'glyphicon':true, 'glyphicon-menu-hamburger':true, active:currentListType === 'table'}"
+        (click)="onToggleClicked('table')"
+    ></span>
+</div>

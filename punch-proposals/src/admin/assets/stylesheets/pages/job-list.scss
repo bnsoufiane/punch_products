@@ -1,0 +1,85 @@
+@import '../kit/_variables.scss';
+
+/*-- Jobs form --*/
+.jobf-form {
+  display: inline-flex;
+  float: right;
+  input.ui-datepicker-prev {
+    width: 200px;
+  }
+  .searchbar {
+    width: 300px;
+    margin-right: 10px;
+    input {
+      height: 40px;
+    }
+  }
+}
+
+.jobf-form> button, input {
+  margin: 2px 2px 2px 10px;
+}
+.scraper-table {
+  margin-bottom: 100px;
+  td,th {
+    &:first-child {
+      padding-left: 15px;
+      width: 20%;
+      @media all and (max-width: 1100px) {
+        padding-left: 15px;
+      }
+    }
+    &:nth-child(2) {
+      width: 15%;
+      @media all and (max-width: 768px) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 15%;
+      }
+      @media all and (max-width: 480px) {
+        display: none;
+      }
+    }
+    &:nth-child(3) {
+      width: 40%;
+      @media all and (max-width: 1100px) {
+        padding-left: 5px;
+      }
+      @media all and (max-width: 768px) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      @media all and (max-width: 480px) {
+        width: 20%;
+      }
+    }
+    &:nth-child(4) {
+      width: 15%;
+      text-align: left;
+      @media all and (max-width: 768px) {
+        width: 8%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      @media all and (max-width: 480px) {
+        display: none;
+      }
+    }
+    &:last-child {
+      width: 10%;
+      text-align: left;
+      @media all and (max-width: 768px) {
+        width: 8%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      @media all and (max-width: 480px) {
+        display: none;
+      }
+    }
+  }
+}

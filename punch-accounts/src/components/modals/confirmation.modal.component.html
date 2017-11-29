@@ -1,0 +1,8 @@
+<div class="modal-wrp" [class.hidden]="!showModal" (click)="cancelAction()">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block alert-modal" (click)="$event.stopPropagation()">
+    <h4>{{message}}</h4>
+    <button class="btn btn-secondary btn-lg" (click)="cancelAction()">{{cancelLabel}}</button>
+    <button class="btn btn-primary btn-lg" (click)="positiveAction()">{{positiveLabel}}</button>
+  </div>
+</div>

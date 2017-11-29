@@ -1,0 +1,34 @@
+@import '_mixins.scss';
+
+/*- GREY SCALE -*/
+$Black: #000000; //darkest color
+$Grey-1: #353535; //darkest color
+$Grey-2: #656565; //darker color
+$Grey-3: #909090; //pirmary dark theme dark accent
+$Grey-4: #B0B0B0; //primary dark theme
+$Grey-5: #CCCCCC; //base button color
+$Grey-6: #DDDDDD; //lighter color
+$Grey-7: #EEEEEE; //even lighter color
+$Grey-8: #FFFFFF; //lightest grey color
+
+/*- PALLETE -*/
+$punchYellow: #ffd400;
+
+/*- FONT WEIGHTS -*/
+$font-fallback: helvetica, arial, sans-serif;
+$font-thin: "Patron-Thin", $font-fallback;
+$font-light: "Patron-Light", $font-fallback;
+$font-reg: "Patron", $font-fallback;
+$font-semibold: "Patron-Medium", $font-fallback;
+$font-bold: "Patron-Bold", $font-fallback;
+
+// Typography
+$md-body-font-size-base: rem(1.400) !default;
+$md-font-family: Roboto, 'Helvetica Neue', sans-serif !default;
+
+// GLOBAL RADIUS
+$radius: 2px;
+$largeRadius: 6px;
+
+//Global default font-size
+$default-font-size: 13px;

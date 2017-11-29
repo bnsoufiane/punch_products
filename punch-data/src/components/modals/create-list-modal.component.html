@@ -1,0 +1,16 @@
+<div class="modal-wrp" [class.hidden]="!showModal" (click)="cancelAction()">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block" (click)="$event.stopPropagation()">
+    <div class="modal-body-content">
+      <div class="row list-controls">
+        <h2>Create List</h2>
+        <div class="col-sm-12">
+          <input type="text" placeholder="List Name" id="listName" title="Search or create list" [(ngModel)]="newListName">
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-secondary pull-right" (click)="createList()"> Create List </button>
+      </div>
+    </div>
+  </div>
+</div>

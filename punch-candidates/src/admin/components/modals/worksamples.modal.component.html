@@ -1,0 +1,20 @@
+<div class="modal-wrp" [class.hidden]="!flag" (click)="toggleModalVisible()">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block work-modal" (click)="$event.stopPropagation()">
+    <div class="view">
+      <div class="main-view">
+        <img src="{{selectedWorkSample && selectedWorkSample.url}}" alt="">
+      </div>
+      <ul class="works-list">
+        <li [ngClass]="{active: isActive(i)}" (click)="enlarge($event.target.id)"
+            *ngFor="#sample of workSamples; #i = index">
+          <img src="{{sample.thumbnail}}" alt="" id="{{i}}">
+        </li>
+      </ul>
+    </div>
+    <div class="work-title">
+      <h3>{{companyName}}</h3>
+      <p>{{position}}</p>
+    </div>
+  </div>
+</div>

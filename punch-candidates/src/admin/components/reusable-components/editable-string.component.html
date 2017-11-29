@@ -1,0 +1,9 @@
+<div class="editable-string">
+  <textarea
+    #textarea
+    name="{{name}}"
+    placeholder="{{placeholder}}"
+    (focus)="onFocus()"
+    (keyup)="onFocus(textarea.value)"
+    (change)="onChange(textarea.value)">{{text}}</textarea>
+</div>

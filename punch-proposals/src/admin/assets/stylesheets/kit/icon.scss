@@ -1,0 +1,29 @@
+@import '_variables.scss';
+
+.chevron-down {
+  background-image: url('../../../../admin/assets/images/shared/svg/chevron-down.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.icon-close {
+  position: absolute;
+  z-index: 99;
+  width: 20px;
+  height: 20px;
+  opacity: 1;
+  right: 4px;
+  top: 4px;
+  background: #fff;
+  color: #FF637B;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: $radius;
+  padding: 3px 5px;
+  cursor: pointer;
+  font-size: 10px;
+  &:hover {
+    text-decoration: none;
+    color: #F0304E;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}

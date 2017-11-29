@@ -1,0 +1,151 @@
+@import '_variables.scss';
+/*------------- VARIABLES -----------*/
+$radio-size: 20px;
+$checkbox-size: 16px;
+$dot-size: 8px;
+$border-color: #c0c0c0;
+$main-color: #000;
+$disabled-color: lighten($border-color, 14%);
+$disabled-checked-color: lighten($main-color, 30%);
+
+/*------------- COMMON -----------*/
+@keyframes hover-color {
+  from {
+    border-color: $border-color;
+  }
+  to {
+    border-color: $main-color;
+  }
+}
+
+.magic-radio,
+.magic-checkbox {
+  position: absolute;
+  display: none;
+}
+.magic-radio[disabled],
+.magic-checkbox[disabled] {
+  cursor: not-allowed;
+}
+
+.magic-radio + label,
+.magic-checkbox + label {
+  position: relative;
+  display: block;
+  padding-left: 30px;
+  cursor: pointer;
+  vertical-align: middle;
+  &:hover {
+    &:before {
+      animation-duration: 0.4s;
+      animation-fill-mode: both;
+      animation-name: hover-color;
+    }
+  }
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    content: '';
+    border: 1px solid $border-color;
+    background: #f8f8f8;
+  }
+  &:after {
+    position: absolute;
+    display: none;
+    content: '';
+  }
+}
+
+.magic-radio[disabled] + label,
+.magic-checkbox[disabled] + label {
+  cursor: not-allowed;
+  color: $disabled-color;
+  &:hover,
+  &:before,
+  &:after {
+    cursor: not-allowed;
+  }
+  &:hover {
+    &:before {
+      border: 1px solid $disabled-color;
+      animation-name: none;
+    }
+  }
+  &:before {
+    border-color: $disabled-color;
+  }
+}
+
+
+.magic-radio:checked + label,
+.magic-checkbox:checked + label {
+  &:before {
+    animation-name: none;
+  }
+  &:after {
+    display: block;
+  }
+}
+/*------------- CHECKBOX -----------*/
+.magic-checkbox + label {
+  &:before {
+    border-radius: 2px;
+  }
+  &:after {
+    top: 2px;
+    left: 6px;
+    box-sizing: border-box;
+    width: 4px;
+    height: 10px;
+    transform: rotate(45deg);
+    border-width: 2px;
+    border-style: solid;
+    border-color: #fff;
+    border-top: 0;
+    border-left: 0;
+  }
+}
+.magic-checkbox:checked + label {
+  &:before {
+    border: $main-color;
+    background: $main-color;
+  }
+}
+.magic-checkbox:checked[disabled] + label {
+  &:before {
+    border: $disabled-checked-color;
+    background: $disabled-checked-color;
+  }
+}
+/*------------- RADIO -----------*/
+.magic-radio + label {
+  &:before {
+    border-radius: 50%;
+  }
+  &:after {
+    top: 6px;
+    left: 6px;
+    width: $dot-size;
+    height: $dot-size;
+    border-radius: 50%;
+    background: $main-color;
+  }
+}
+
+.magic-radio:checked + label {
+  &:before {
+    border: 1px solid $main-color;
+  }
+}
+.magic-radio:checked[disabled] + label {
+  &:before {
+    border: 1px solid $disabled-checked-color;
+  }
+  &:after {
+    background: $disabled-checked-color;
+  }
+}

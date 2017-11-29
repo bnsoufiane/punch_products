@@ -1,0 +1,48 @@
+<div class="modal-wrp" [class.hidden]="!showModal" (click)="cancelAction()">
+  <button class="btn btn-close ion-close-round"></button>
+  <div class="modal-block modal-candidates" (click)="$event.stopPropagation()">
+    <div class="modal-body-content">
+      <div class="row list-controls">
+        <div class="col-sm-4">
+          <ar-list-dropdown-filter
+            [elements]="roles" [defaultText]="'All Positions'" (dropdownFilterChanged)="role = $event">
+          </ar-list-dropdown-filter>
+        </div>
+        <div class="right-side col-sm-8">
+          <ar-list-search (queryChanged)="query = $event"></ar-list-search>
+        </div>
+      </div>
+      <div class="table-responsive elements-table">
+        <table>
+          <!-- TABLEHEAD -->
+          <thead>
+            <th>NAME</th>
+            <th>ROLE</th>
+            <th>LOCATION</th>
+          </thead>
+          <!-- TABLE ROW -->
+          <tr *ngFor="#candidate of candidates |
+                    candidateQueryFilter:query |
+                    candidateRoleFilter:role |
+                    paginate:currentPage"
+              (click)="toggleSelected(candidate)"
+              [ngClass]="{'active':isSelected(candidate) }">
+            <td>
+              <div class="avatar-wrp">
+                <img src="{{candidate?.avatar?.thumbnail}}" alt="">
+              </div>
+              {{candidate.fullname}}
+            </td>
+            <td>{{candidate.roles[0] | roleText:roles}}</td>
+            <td>{{candidate.location}}</td>
+          </tr>
+        </table>
+        <ar-list-pagination
+          [config]="currentPage"
+          (pageChanged)="currentPage = $event">
+        </ar-list-pagination>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-full" (click)="positiveAction()">{{positiveLabel}}</button>
+  </div>
+</div>

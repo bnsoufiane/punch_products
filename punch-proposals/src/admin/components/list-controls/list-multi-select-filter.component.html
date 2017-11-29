@@ -1,0 +1,21 @@
+<div class="multi-select" ng2-select-click-action>
+    <button class="btn btn-default dropdown-toggle" type="button" id="ngMultiSelectListControlButton">
+        <span *ngIf="showDefault()">{{defaultText}}</span>
+        <span *ngIf="!showDefault()">
+            <span class="select-btn-text">{{getButtonText()}}</span>
+            <span class="overflow-btn-text">{{getOverflowText()}}</span>
+        </span>
+        <span class="caret"></span>
+    </button>
+    <div class="hidden" id="ngMultiSelectListControlId">
+        <ng-select [data]="initData"
+                   [multiple]="true"
+                   [items]="elements"
+                   [disabled]="false"
+                   (data)="refreshValue($event)"
+                   placeholder="{{defaultText}}">
+        </ng-select>
+    </div>
+    <div class="hidden multi-select-close-button ion" id="ngMultiSelectListControlCloseButton">
+    </div>
+</div>

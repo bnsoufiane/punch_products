@@ -1,0 +1,317 @@
+<div id="wrapper" class="add-candidate-page"
+     [ngClass]="{disabledButton: isUploading}">
+  <div class="page-wrapper">
+    <!-- FLOATED NAV -->
+    <ar-header>
+      <div class="floated-navigation">
+        <div class="col-sm-6">
+          <div class="go-back-group">
+            <a [routerLink]="['Home']" class="btn btn-back"></a>
+          </div>
+          <h2>{{title}}</h2>
+        </div>
+        <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+        <div class="right-side col-sm-6">
+          <button type="submit" class="btn btn-primary" form="candidateForm"
+          (click)="submitted=true" [class.hidden]="isUploading">
+            <span *ngIf="formType === 'add'">Add</span>
+            <span *ngIf="formType === 'edit'">Save</span>
+          </button>
+          <button class="btn btn-plain" (click)="showConfirmation()"
+                  *ngIf="formType === 'edit'">Delete</button>
+          <button class="btn btn-lg btn-primary loading-btn" [class.hidden]="!isUploading"><img src="../admin/assets/images/shared/loading.png"></button>
+          <button
+            class="btn btn-lg btn-plain"
+            (click)="copyLiveURLToClipboard()"
+            *ngIf="formType === 'edit' && canCopy()">
+            Copy Link
+          </button>
+          <a
+            class="btn btn-lg btn-plain"
+            [routerLink]="['CandidateProfile', {id:candidate?._id}]"
+            target="_blank"
+            *ngIf="formType === 'edit'">
+            View Live
+          </a>
+        </div>
+      </div>
+    </ar-header>
+    <!-- BODY -->
+    <div class="candidate-wrp">
+      <!-- CANDIDATE DETAILS -->
+      <div class="col-sm-12">
+        <form (ngSubmit)="onSubmit(candidate)" #candidateForm="ngForm" id="candidateForm">
+          <div class="custom-form">
+          <div class="basic-info">
+            <div class="left-side col-sm-4">
+              <!-- AVATAR -->
+              <div class="avatar-holder">
+                <h4 class="title">AVATAR</h4>
+                <div class="file-wrp small">
+                  <div class="file-up">
+                    <span class="arrow"></span>
+                    <span class="file-title">Avatar</span>
+                  </div>
+                  <div *ngIf="candidate?.avatar?.thumbnail">
+                    <div class="preview">
+                      <img src="{{candidate?.avatar?.thumbnail}}" alt="">
+                      <a (click)="removeAvatar()" class="icon-close ion-close-round"></a>
+                    </div>
+                  </div>
+                  <div *ngIf="!candidate?.avatar?.thumbnail">
+                    <div class="preview" *ngIf="previews.avatar">
+                      <img src="{{previews.avatar}}" alt="">
+                      <a (click)="removePreview('avatar')" class="icon-close ion-close-round"></a>
+                    </div>
+                    <input type="file" *ngIf="!previews.avatar" required
+                           (change)="uploadImage($event)" name="avatar" id="avatar">
+                  </div>
+                </div>
+              </div>
+              <!-- VIDEO INTERVIEW -->
+              <div class="interview-holder">
+                <h4 class="title">INTERVIEW</h4>
+                <div class="file-wrp big">
+                  <div class="file-up">
+                    <span class="arrow"></span>
+                    <span class="file-title">Video</span>
+                  </div>
+                  <div *ngIf="videoUrl">
+                    <div class="preview">
+                      <p>{{videoUrl}}</p>
+                      <a (click)="videoUrl = ''" class="icon-close ion-close-round"></a>
+                    </div>
+                  </div>
+                  <div *ngIf="!videoUrl">
+                    <div class="preview" *ngIf="previews.interviewVideo">
+                      <p>{{candidate.interviewVideo['name']}}</p>
+                      <a (click)="removePreview('interviewVideo')" class="icon-close ion-close-round"></a>
+                    </div>
+                    <input type="file" (change)="uploadVideo($event)" *ngIf="!previews.interviewVideo"
+                           name="interviewVideo" id="interviewVideo">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right-side">
+              <div class="col-sm-6">
+                <h4 class="title">NAME</h4>
+                <input required type="text" id="fullname"
+                       [(ngModel)]="candidate.fullname" placeholder="e.g. Alex Holm">
+              </div>
+              <div class="col-sm-6" [ngClass]="{'required-field': rolesNotProvided()}">
+                <h4 class="title">ROLE</h4>
+                <div class="controls" *ngIf="areRolesReady()">
+                  <ng-select [initData]="initRoles"
+                             [multiple]="true"
+                             [items]="roles"
+                             (selected)="selected($event)"
+                             (removed)="removed($event)"
+                             placeholder="Kindly select role"
+                  ></ng-select>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <h4 class="title">Location</h4>
+                <input required type="text" id="location"
+                       [(ngModel)]="candidate.location" placeholder="e.g. San Francisco, CA">
+              </div>
+              <div class="col-sm-6">
+                <h4 class="title">TITLE</h4>
+                <input required type="text" id="title"
+                       [(ngModel)]="candidate.title"
+                       placeholder="e.g. Information Security Professional">
+              </div>
+            </div>
+          </div>
+          <!-- SKILL SET -->
+          <div class="skillset-block">
+            <h4 class="title">SKILL SET<span class="subtitle">MAX. 6</span></h4>
+            <ul class="skillset-list">
+              <li *ngFor="#skillset of candidate.skillset; #i = index" class="col-sm-4">
+                <span>{{i + 1}}</span>
+                <input required type="text"
+                       name="skillset[].title" [(ngModel)]="skillset.title" placeholder="Skill">
+                <input type="text"
+                       name="skillset[].description"
+                       [(ngModel)]="skillset.description" placeholder="Skill Description">
+              </li>
+            </ul>
+          </div>
+          <!-- PAST EXPIERENCE -->
+          <div class="past-experience-block">
+            <h4 class="title">PAST EXPERIENCE<span class="subtitle">MAX. 3</span></h4>
+            <ul class="company-list">
+              <li *ngFor="#pastCompany of candidate.pastCompanies; #i = index;" class="col-sm-4">
+                <div class="file-wrp white">
+                  <div class="file-up">
+                    <span class="arrow"></span>
+                    <span class="file-title">Company Logo</span>
+                  </div>
+                  <div *ngIf="candidate?.pastCompanies[i]?.logo">
+                    <div class="preview">
+                      <img src="{{candidate?.pastCompanies[i]?.logo?.thumbnail}}" alt="">
+                      <a (click)="removeCompanyLogo(i)" class="icon-close ion-close-round"></a>
+                    </div>
+                  </div>
+                  <div *ngIf="!candidate?.pastCompanies[i]?.logo">
+                    <div class="preview" *ngIf="previews[companyLogo(i + 1)]">
+                      <img src="{{previews[companyLogo(i + 1)]}}" alt="">
+                      <a (click)="removePreview(companyLogo(i + 1))" class="icon-close ion-close-round"></a>
+                    </div>
+                    <input required type="file" *ngIf="!previews[companyLogo(i + 1)]"
+                           (change)="uploadImage($event)" [name]="companyLogo(i + 1)">
+                  </div>
+                </div>
+                <div class="two-inputs">
+                  <input required type="text" name="pastCompanies[].name"
+                         [(ngModel)]="pastCompany.name" placeholder="Company">
+                  <input required type="text" name="pastCompanies[].url"
+                         [(ngModel)]="pastCompany.url" placeholder="Company Url">
+                </div>
+                <input required type="text"
+                       name="pastCompanies[].position"
+                       [(ngModel)]="pastCompany.position" placeholder="Position">
+                <textarea required type="text" placeholder="Description"
+                       [(ngModel)]="pastCompany.workDescription"></textarea>
+                <div class="dates-inputs">
+                  <select required [(ngModel)]="pastCompany.workStartMonth">
+                  <!--<select required [(ngModel)]="testSelect">-->
+                    <option value="0" selected disabled class="default-option">Month</option>
+                    <option *ngFor="#month of DATE.MONTHS; #i = index" value="{{i+1}}">
+                      {{month}}
+                    </option>
+                  </select>
+                  <select required [(ngModel)]="pastCompany.workStartYear">
+                    <option value="0" selected disabled class="default-option">Year</option>
+                    <option *ngFor="#year of DATE.YEARS; #i = index" value="{{year}}">
+                      {{year}}
+                    </option>
+                  </select>
+                  <span class="divider">-</span>
+                  <select required [(ngModel)]="pastCompany.workEndMonth"
+                          [disabled]="currentlyWorksHereCheckBok[i]">
+                    <option value="0" selected disabled class="default-option">Month</option>
+                    <option *ngFor="#month of DATE.MONTHS; #i = index" value="{{i+1}}">
+                      {{month}}
+                    </option>
+                  </select>
+                  <select required [(ngModel)]="pastCompany.workEndYear"
+                          [disabled]="currentlyWorksHereCheckBok[i]">
+                    <option value="0" selected disabled class="default-option">Year</option>
+                    <option *ngFor="#year of DATE.YEARS; #i = index" value="{{year}}">
+                      {{year}}
+                    </option>
+                  </select>
+                </div>
+                <div class="dates-inputs">
+                  <div class="workshere">
+                    <input type="checkbox" name="currentlyWorksHere" (click)="setEndDate(i)">
+                    <label>Currently Works Here</label>
+                  </div>
+                </div>
+                <ul class="samples-list">
+                  <li>
+                    <div class="file-wrp white small">
+                      <div class="file-up">
+                        <span class="arrow"></span>
+                        <span class="file-title">Work</span>
+                      </div>
+
+                      <div *ngIf="candidate?.pastCompanies[i]?.workSamples &&
+                      candidate?.pastCompanies[i]?.workSamples[0]">
+                        <div class="preview">
+                          <img src="{{candidate?.pastCompanies[i]?.workSamples &&
+                          candidate?.pastCompanies[i]?.workSamples[0]?.thumbnail}}" alt="">
+                          <a (click)="removeCompanySample(i, 0)" class="close"></a>
+                        </div>
+                      </div>
+
+                      <div *ngIf="!(candidate?.pastCompanies[i]?.workSamples &&
+                      candidate?.pastCompanies[i]?.workSamples[0])">
+                        <div class="preview" *ngIf="previews[companyWorkSample(i + 1, 1)]">
+                          <img src="{{previews[companyWorkSample(i + 1, 1)]}}" alt="">
+                          <a (click)="removePreview(companyWorkSample(i + 1, 1))" class="close"></a>
+                        </div>
+                        <input type="file" *ngIf="!previews[companyWorkSample(i + 1, 1)]"
+                               (change)="uploadImage($event)" [name]="companyWorkSample(i + 1, 1)">
+                        </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="file-wrp white small">
+                      <div class="file-up">
+                        <span class="arrow"></span>
+                        <span class="file-title">Work</span>
+                      </div>
+                      <div *ngIf="candidate?.pastCompanies[i]?.workSamples &&
+                      candidate?.pastCompanies[i]?.workSamples[1]">
+                        <div class="preview">
+                          <img src="{{candidate?.pastCompanies[i]?.workSamples &&
+                          candidate?.pastCompanies[i]?.workSamples[1]?.thumbnail}}" alt="">
+                          <a (click)="removeCompanySample(i, 1)" class="close"></a>
+                        </div>
+                      </div>
+
+                      <div *ngIf="!(candidate?.pastCompanies[i]?.workSamples &&
+                      candidate?.pastCompanies[i]?.workSamples[1])">
+                        <div class="preview" *ngIf="previews[companyWorkSample(i + 1, 2)]">
+                          <img src="{{previews[companyWorkSample(i + 1, 2)]}}" alt="">
+                          <a (click)="removePreview(companyWorkSample(i + 1, 2))" class="close"></a>
+                        </div>
+                        <input type="file" *ngIf="!previews[companyWorkSample(i + 1, 2)]"
+                               (change)="uploadImage($event)" [name]="companyWorkSample(i + 1, 2)">
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="file-wrp white small">
+                      <div class="file-up">
+                        <span class="arrow"></span>
+                        <span class="file-title">Work</span>
+                      </div>
+                      <div *ngIf="candidate?.pastCompanies[i]?.workSamples &&
+                      candidate?.pastCompanies[i]?.workSamples[2]">
+                        <div class="preview">
+                          <img src="{{candidate?.pastCompanies[i]?.workSamples &&
+                          candidate?.pastCompanies[i]?.workSamples[2]?.thumbnail}}" alt="">
+                          <a (click)="removeCompanySample(i, 2)" class="close"></a>
+                        </div>
+                      </div>
+
+                      <div *ngIf="!(candidate?.pastCompanies[i]?.workSamples &&
+                      candidate?.pastCompanies[i]?.workSamples[2])">
+                        <div class="preview" *ngIf="previews[companyWorkSample(i + 1, 3)]">
+                          <img src="{{previews[companyWorkSample(i + 1, 3)]}}" alt="">
+                          <a (click)="removePreview(companyWorkSample(i + 1, 3))" class="close"></a>
+                        </div>
+                        <input type="file" *ngIf="!previews[companyWorkSample(i + 1, 3)]"
+                               (change)="uploadImage($event)" [name]="companyWorkSample(i + 1, 3)">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <ar-confirmation-modal
+      [showModal]="showModal"
+      [message]="'Are you sure you want to delete?'"
+      [cancelLabel]="'No'"
+      [positiveLabel]="'Yes'"
+      (closed)="destroy($event)">
+    </ar-confirmation-modal>
+    <!-- CONFIRM EXIT PAGE -->
+    <ar-confirmation-modal
+      [showModal]="showPageExitConfirmModal"
+      [message]="'Are you sure you want to exit this page?'"
+      [cancelLabel]="'No'"
+      [positiveLabel]="'Yes'"
+      (closed)="confirmExitPage($event)">
+    </ar-confirmation-modal>
+  </div>
+</div>

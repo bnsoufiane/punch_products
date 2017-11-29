@@ -1,0 +1,29 @@
+@mixin transition-linear ($duration) {
+  transition: all $duration linear;
+  -webkit-transition: all $duration linear;
+  -moz-transition: all $duration linear;
+}
+
+/*-- BOX SHADOW --*/
+@mixin box-shadow($density, $size, $opacity) {
+  box-shadow: 0px $density $size rgba(0, 0, 0, $opacity);
+  @include transition-linear(0.2s);
+}
+
+@mixin avatar-border($stroke, $opacity, $radius) {
+  position: absolute;
+  border-style: solid;
+  border-width: $stroke;
+  opacity: $opacity;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  top:0px;
+  content: '';
+  border-radius: $radius;
+}
+
+@mixin iconsvg {
+  background-size: contain;
+  background-repeat: no-repeat;
+}

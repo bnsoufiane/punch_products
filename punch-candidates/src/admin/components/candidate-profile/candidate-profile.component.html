@@ -1,0 +1,80 @@
+<div id="wrapper">
+  <div class="profile-page">
+    <div class="info">
+      <div class="wrp">
+        <!-- NAV -->
+        <nav class="navbar">
+          <a class="col-sm-2 logo" href="http://punch-agency.com" target="_blank">
+            <img src="admin/assets/images/shared/logo-navbar-2x.png" alt="Punch Logo" width="73" height="25">
+          </a>
+        </nav>
+        <!-- HEADER -->
+        <div class="basic-info">
+          <div class="avatar-section">
+            <img src="{{candidate.avatar && candidate.avatar.url}}" alt="">
+          </div>
+          <div class="info-section">
+            <h2>{{candidate.fullname}}</h2>
+            <h3>{{candidate.title}}</h3>
+            <h4>{{candidate.location}}</h4>
+            <div class="button-block" *ngIf="interviewSource">
+              <button (click)="toggleInterview()" class="btn btn-primary">VIEW INTERVIEW</button>
+            </div>
+          </div>
+        </div>
+        <div class="top-skills">
+          <h4 class="title">TOP SKILLS</h4>
+          <ul class="skills-list">
+            <li *ngFor="#skillset of candidate.skillset; #i = index">
+              <div class="skill-name">
+                <span>{{i + 1}}</span>
+                <p>{{skillset.title}}</p>
+              </div>
+              <div class="popup" *ngIf="skillset.description">
+                <h4>{{skillset.title}}</h4>
+                <p>{{skillset.description}}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="experience-block">
+      <div class="wrp">
+        <h4 class="title">PAST EXPIERENCE</h4>
+        <ul class="experience-list">
+          <li *ngFor="#company of candidate.pastCompanies; #i = index">
+            <a href="http://{{strippedUrl(company.url)}}" target="_blank">
+              <div class="experience-avatar">
+                <img src="{{company?.logo?.url}}" alt="">
+              </div>
+            </a>
+            <h3><a href="http://{{strippedUrl(company.url)}}" target="_blank">{{company.name}}</a></h3>
+            <h4>
+              {{company.position}}
+            </h4>
+            <p class="desc">{{company.workDescription}}</p>
+            <p class="date">
+              {{listOfMonths[company.workStartMonth - 1]}} {{company.workStartYear}}
+              -
+              {{listOfMonths[company.workEndMonth - 1]}} {{company.workEndYear}}
+            </p>
+            <p class="date">{{difference(company.workStartMonth - 1, company.workStartYear
+              , company.workEndMonth - 1, company.workEndYear)}}</p>
+            <button (click)="toggleWorkSamplesModal($event.target.id)"
+                    id="{{i}}" class="btn btn-secondary"
+                    *ngIf="company.workSamples.length > 0">VIEW WORK</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="hire-block">
+
+    </div>
+    <ar-footer></ar-footer>
+    <ar-worksamples-modal [flag]="showWork" [workSamples]="workSamples"
+           (closed)="toggleWorkSamplesModal()" [companyName]="companyName"
+           [position]="position"></ar-worksamples-modal>
+    <ar-video-modal [flag]="showInterview" (closed)="toggleInterview()" [source]="interviewSource"></ar-video-modal>
+  </div>
+</div>

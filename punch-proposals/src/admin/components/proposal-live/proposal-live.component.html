@@ -1,0 +1,327 @@
+<!-- NAVBAAR -->
+<div class="proposal-navbar">
+  <ul class="nav navbar-nav navbar-right">
+    <li id="main-nav">
+      <ul>
+        <li *ngIf="!proposal?.overview_inactive">
+          <a pageScroll href="#Overview"
+             [class.active]="currentAnchor === 'Overview'"
+             (pageScrollFinish)="currentAnchor='Overview'">
+            Overview
+          </a>
+        </li>
+        <li *ngIf="!proposal?.scope_of_work_inactive">
+          <a pageScroll href="#ScopeOfWork"
+           [class.active]="currentAnchor === 'ScopeOfWork'"
+           (pageScrollFinish)="currentAnchor='ScopeOfWork'">
+           Scope
+          </a>
+        </li>
+        <li *ngIf="!proposal?.steps_inactive">
+          <a pageScroll href="#Steps"
+           [class.active]="currentAnchor === 'Steps'"
+           (pageScrollFinish)="currentAnchor='Steps'">
+            {{proposal?.steps?.title || 'Steps'}}
+          </a>
+        </li>
+        <li *ngIf="!proposal?.timeline_inactive">
+          <a pageScroll href="#Timeline"
+           [class.active]="currentAnchor === 'Timeline'"
+           (pageScrollFinish)="currentAnchor='Timeline'">
+            {{proposal?.timeline?.title || 'Timeline'}}          </a>
+        </li>
+        <li *ngIf="!proposal?.candidate_ids_inactive">
+          <a pageScroll href="#Team"
+             [class.active]="currentAnchor === 'Team'"
+             (pageScrollFinish)="currentAnchor='Team'">
+            Team
+          </a>
+        </li>
+        <li *ngIf="!proposal?.breakdown_inactive">
+          <a pageScroll href="#Breakdown"
+             [class.active]="currentAnchor === 'Breakdown'"
+             (pageScrollFinish)="currentAnchor='Breakdown'">
+            {{proposal?.breakdown?.title || 'Breakdown'}}
+          </a>
+        </li>
+        <li *ngIf="!proposal?.portfolio_ids_inactive">
+          <a pageScroll href="#Portfolio"
+             [class.active]="currentAnchor === 'Portfolio'"
+             (pageScrollFinish)="currentAnchor='Portfolio'">
+            Portfolio
+          </a>
+        </li>
+        <li>
+          <a pageScroll href="#AboutPunch"
+             [class.active]="currentAnchor === 'AboutPunch'"
+             (pageScrollFinish)="currentAnchor='AboutPunch'">
+            About Us
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li dropdown id="small-nav">
+      <a href id="nav-dropdown" dropdownToggle>
+        <span class="icon ion-navicon"></span>
+        <span class="menu-title">Navigate</span>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="nav-dropdown">
+        <li *ngIf="!proposal?.overview_inactive">
+          <a pageScroll href="#Overview"
+             [class.active]="currentAnchor === 'Overview'"
+             (pageScrollFinish)="currentAnchor='Overview'">
+            Overview
+          </a>
+        </li>
+        <li *ngIf="!proposal?.scope_of_work_inactive">
+          <a pageScroll href="#ScopeOfWork"
+             [class.active]="currentAnchor === 'ScopeOfWork'"
+             (pageScrollFinish)="currentAnchor='ScopeOfWork'">
+            Scope
+          </a>
+        </li>
+        <li *ngIf="!proposal?.steps_inactive">
+          <a pageScroll href="#Steps"
+             [class.active]="currentAnchor === 'Steps'"
+             (pageScrollFinish)="currentAnchor='Steps'">
+            {{proposal?.steps?.title || 'Steps'}}
+          </a>
+        </li>
+        <li *ngIf="!proposal?.timeline_inactive">
+          <a pageScroll href="#Timeline"
+             [class.active]="currentAnchor === 'Timeline'"
+             (pageScrollFinish)="currentAnchor='Timeline'">
+            {{proposal?.timeline?.title || 'Timeline'}}
+          </a>
+        </li>
+        <li *ngIf="!proposal?.candidate_ids_inactive">
+          <a pageScroll href="#Team"
+             [class.active]="currentAnchor === 'Team'"
+             (pageScrollFinish)="currentAnchor='Team'">
+            Team
+          </a>
+        </li>
+        <li *ngIf="!proposal?.breakdown_inactive">
+          <a pageScroll href="#Breakdown"
+             [class.active]="currentAnchor === 'Breakdown'"
+             (pageScrollFinish)="currentAnchor='Breakdown'">
+            {{proposal?.breakdown?.title || 'Breakdown'}}
+          </a>
+        </li>
+        <li *ngIf="!proposal?.portfolio_ids_inactive">
+          <a pageScroll href="#Portfolio"
+             [class.active]="currentAnchor === 'Portfolio'"
+             (pageScrollFinish)="currentAnchor='Portfolio'">
+            Portfolio
+          </a>
+        </li>
+        <li>
+          <a pageScroll href="#AboutPunch"
+             [class.active]="currentAnchor === 'AboutPunch'"
+             (pageScrollFinish)="currentAnchor='AboutPunch'">
+            About Punch
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<!-- BODY -->
+<div class="proposal-header">
+  <div class="body">
+    <div class="logo">
+      <img src="admin/assets/images/shared/logo-navbar-2x.png" alt="Punch Logo" width="61" height="20">
+    </div>
+    <h1 class="name">{{proposal?.name}}</h1>
+    <h3 class="Propsal">{{proposal?.subhead || 'Proposal'}}</h3>
+  </div>
+</div>
+<div #sections scrollSpy class="proposal-body">
+  <!--- ROW -->
+  <div id="Overview" class="row proposal-section" *ngIf="!proposal?.overview_inactive">
+    <h4 class="row-header">Overview</h4>
+    <p>{{proposal?.overview}}</p>
+  </div>
+  <!--- ROW -->
+  <div id="ScopeOfWork" class="row proposal-section" *ngIf="!proposal?.scope_of_work_inactive">
+    <h4 class="row-header">Scope of Work</h4>
+    <p>{{proposal?.scope_of_work}}</p>
+  </div>
+  <!--- ROW -->
+  <div id="Steps" class="row proposal-section steps" *ngIf="!proposal?.steps_inactive">
+    <h4 class="row-header">{{proposal?.steps?.title || 'Steps'}}</h4>
+    <p>{{proposal?.steps?.summary}}</p>
+    <ul>
+      <li *ngFor="#step of proposal?.steps?.list; #i = index">
+        <span class="step-number">{{i+1}}</span>
+        <h5>{{step?.header}}</h5>
+        <p>{{step?.paragraph}}</p>
+      </li>
+    </ul>
+  </div>
+  <!--- ROW -->
+  <div id="Timeline" class="row breakdown proposal-section" *ngIf="!proposal?.timeline_inactive">
+    <h4 class="row-header">{{proposal?.timeline?.title || 'Timeline'}}</h4>
+    <p>{{proposal?.timeline?.summary}}</p>
+    <!-- TABLEVIEW -->
+    <div class="breakdown-table" *ngFor="#table of proposal?.timeline?.tables">
+      <h5>{{table.title}}</h5>
+      <div class="table-responsive elements-table" *ngIf="table.table && table.table.length > 0">
+        <table>
+          <thead>
+          <tr>
+            <th *ngFor="#headCell of table.table[0].row">{{headCell}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="#row of getTableContent(table)">
+            <td *ngFor="#cell of row.row">{{cell}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- END TABLE -->
+  </div>
+  <!--- ROW -->
+  <div id="Inserts" class="row inserts proposal-section"
+       *ngIf="!proposal?.inserts_inactive && proposal?.inserts && proposal?.inserts.length > 0">
+    <h4 class="row-header">Services</h4>
+    <!-- INSERT ROW -->
+    <div *ngFor="#insert of proposal?.inserts">
+      <h5>{{insert.title}}</h5>
+      <p>{{insert.paragraph}}</p>
+    </div>
+  </div>
+  <!--- ROW -->
+  <div id="Team" class="row team proposal-section"  *ngIf="!proposal?.candidate_ids_inactive">
+    <h4 class="row-header">The Team</h4>
+    <p>
+      Here are a few team members we have lined up that
+      based on experience and background we believe will be a strong fit
+      for your needs. These are just thoughts and nothing final, If you feel
+      like you'd want to switch up team members or structure we are super
+      flexible around your needs!
+    </p>
+    <div class="col col-sm-4 col-xs-6" *ngFor="#candidate of selectedCandidates">
+      <div class="candidate">
+        <div class="avatar-wrp">
+          <img src="{{candidate?.avatar?.thumbnail}}" alt="">
+        </div>
+        <h3>{{candidate?.fullname}}</h3>
+        <p>{{candidate?.roles[0] | roleText:roles}}</p>
+        <a class="btn btn-secondary" (click)="onViewCandidate(candidate?._id)" target="_blank">View Profile</a>
+      </div>
+    </div>
+  </div>
+  <!--- ROW -->
+  <div id="Breakdown" class="row breakdown proposal-section" *ngIf="!proposal?.breakdown_inactive">
+    <h4 class="row-header">{{proposal?.breakdown?.title || 'Breakdown'}}</h4>
+    <p>{{proposal?.breakdown?.summary}}</p>
+    <!-- TABLEVIEW -->
+    <div class="breakdown-table" *ngFor="#table of proposal?.breakdown?.tables">
+      <h5>{{table.title}}</h5>
+      <div class="table-responsive elements-table" *ngIf="table.table && table.table.length > 0">
+        <table>
+          <thead>
+            <tr>
+              <th *ngFor="#headCell of table.table[0].row">{{headCell}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="#row of getTableContent(table)">
+              <td *ngFor="#cell of row.row">{{cell}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- END TABLE -->
+    <div class="col-sm-6 byline">
+      <h5>Resources</h5>
+      <p>Resources represent full time or part time members of
+        Punch working on your project. You can add or remove a
+        resource at any time for any reason in writing
+        (over email for example) to Punch.
+      </p>
+    </div>
+    <div class="col-sm-6 byline">
+      <h5>Pricing</h5>
+      <p>All pricing listed in this proposal is honored by Punch
+        for 30 days. Pricing for resources may change with a 30
+        day notice for clients.
+      </p>
+    </div>
+  </div>
+  <!--- ROW -->
+  <div id="Portfolio" class="row portfolio proposal-section" *ngIf="!proposal?.portfolio_ids_inactive">
+    <h4 class="row-header">Portfolio</h4>
+    <p>The following are a few samples of work we have done for previous
+      clients that we feel are similar to the scope of work we previously discussed. Enjoy!</p>
+    <div class="col col-sm-12"  *ngFor="#sample of selectedSamples">
+      <a class="work" (click)="togglePortfolioModal(sample)">
+        <img src="{{sample?.image}}">
+      </a>
+    </div>
+  </div>
+  <!-- TESTIMONIALS SLIDER -->
+  <div id="testimonials" class="row">
+    <carousel [interval]="8000" [noWrap]="false">
+      <slide *ngFor="#slidez of testimonials; #i = index"
+             [active]="slidez.active">
+        <div class="carousel-caption">
+          <h3>{{slidez.testimonial}}</h3>
+          <p>{{slidez.name}}</p>
+          <p>{{slidez.company}}</p>
+        </div>
+      </slide>
+    </carousel>
+  </div>
+  <!-- END TESTIMONIALS SLIDER -->
+  <!--- ROW -->
+  <div id="AboutPunch" class="row aboutus proposal-section">
+    <h4 class="row-header">About Punch</h4>
+    <h2 class="established">Established in 2015</h2>
+    <p>Punch is a full service digital agency of artists &
+      engineers building products for our client’s most challenging needs.</p>
+    <p> Punch has offices across the globe with over seventy people
+      working in engineering, design, marketing, and staffing. We
+      provide the people, talent, and resources a company needs to
+      build whatever they wish.</p>
+    <p>We pride ourselves on work that is exceptional: elegant design,
+      sophisticated engineering, personalized staffing, and
+      engaging marketing.</p>
+    <div class="col col-sm-4">
+      <h2>71</h2>
+      <h3>Team Members</h3>
+    </div>
+    <div class="col col-sm-4">
+      <h2>6</h2>
+      <h3>Offices</h3>
+    </div>
+    <div class="col col-sm-4">
+      <h2>LLC</h2>
+      <h3>Ownership</h3>
+    </div>
+  </div>
+  <!--- ROW -->
+  <div class="row footerstatement">
+    <p>Prepared for {{proposal?.name}} on {{proposalDate}}.
+      This document is confidential and contains
+      material intended solely for the original recipient.</p>
+  </div>
+  <!--- ROW -->
+  <div class="row proposal-footer">
+    <h2>Great work starts here.</h2>
+  </div>
+</div>
+
+<!--View Portfolio Modal-->
+<ar-view-portfolio-modal
+  [portfolio]="selectedPortfolio"
+  [showModal]="showPortfolioModal"
+  (closed)="togglePortfolioModal()">
+</ar-view-portfolio-modal>
+
+<!-- FOOTER -->
+<ar-footer></ar-footer>

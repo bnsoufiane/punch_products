@@ -1,0 +1,24 @@
+@import '_variables.scss';
+
+p {
+  font-weight: 400;
+  letter-spacing: 0.010em;
+  line-height: 20px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+a {
+  color: #1A9EEC;
+  &:hover {
+    color: #0076BB;
+    text-decoration: none;
+  }
+}
+
+h2 {
+  margin: 0px;
+  font-size: 22px;
+  font-family: $font-thin;
+  color: #777;
+}

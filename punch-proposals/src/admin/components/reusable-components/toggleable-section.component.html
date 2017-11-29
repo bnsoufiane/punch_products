@@ -1,0 +1,5 @@
+<ng-content *ngIf="!inactive"></ng-content>
+<div class="turned-off-content" *ngIf="inactive">
+  <p>Section is temporarily turned off</p>
+  <p><a href (click)="onActivate()">Turn back on</a></p>
+</div>

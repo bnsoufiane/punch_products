@@ -1,0 +1,97 @@
+@import '../kit/_variables.scss';
+
+.editable-table {
+  .table-title {
+    .editable-string {
+      margin-bottom: -10px;
+      font-size: 15px;
+      color: #666;
+    }
+  }
+  table {
+    width: 100%;
+    table-layout: fixed;
+    thead {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      border: 1px solid #eee;
+      border-bottom: none;
+      th {
+        color: #9a9a9a;
+        cursor: pointer;
+        font-size: 12px;
+        letter-spacing: 3px;
+        padding: 12px 6px;
+        text-transform: uppercase;
+        text-align: center;
+        position: relative;
+        &.small-column {
+          width: 20px;
+        }
+        .delete-column {
+          position: absolute;
+          left: 20px;
+          bottom: -8px;
+          visibility: hidden;
+          &:hover {
+            visibility: visible;
+          }
+        }
+        &:hover {
+          .delete-column {
+            visibility: visible;
+          }
+        }
+      }
+    }
+    tbody {
+      border: 1px solid #eee;
+    }
+    td {
+      color: #444;
+      font-family: $font-reg;
+      line-height: 28px;
+      padding: 3px 6px 4px;
+      text-align: center;
+      &:last-child {
+        padding: 0;
+        text-align: left;
+        .delete-row {
+          visibility: hidden;
+        }
+      }
+    }
+    tr {
+      &:nth-child(even) {
+        td {
+          background: #f9f9f9;
+          border: solid #e7e7e7;
+          border-width: 1px 0;
+        }
+      }
+      &:hover {
+        td:last-child .delete-row {
+          visibility: visible;
+        }
+      }
+    }
+    td,th {
+      display: grid;
+      .editable-string {
+        textarea {
+          margin: 0 0 -10px 0;
+          padding: 6px 2px 6px 15px;
+          height: 42px;
+        }
+      }
+      .delete-column, .delete-row {
+        color: #b1b1b1;
+      }
+    }
+  }
+  .table-controls {
+    text-align: right;
+    margin: 5px 0;
+  }
+}

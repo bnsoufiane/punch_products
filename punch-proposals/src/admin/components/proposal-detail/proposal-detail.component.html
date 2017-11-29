@@ -1,0 +1,341 @@
+<div id="wrapper">
+  <!-- FLOATED NAV -->
+  <ar-header>
+    <div class="floated-navigation">
+      <div class="col-sm-4">
+        <div class="go-back-group">
+          <a [routerLink]="['Home']" class="btn btn-back"></a>
+        </div>
+      </div>
+      <div class="right-side col-sm-8">
+        <button type="submit" class="btn btn-lg btn-primary" form="proposalForm" (click)="submitted = true">
+          <span *ngIf="formType === 'add'">Add</span>
+          <span *ngIf="formType === 'edit'">Save</span>
+        </button>
+        <button class="btn btn-lg btn-plain" (click)="confirmDeleteProposal()"
+                *ngIf="formType === 'edit'">Delete</button>
+        <button class="btn btn-lg btn-primary loading-btn" [class.hidden]="!isUploading"><img src="../admin/assets/images/shared/loading.png"></button>
+        <button
+          class="btn btn-lg btn-plain"
+          (click)="copyLiveURLToClipboard()"
+          *ngIf="formType === 'edit' && canCopy()">
+          Copy Link
+        </button>
+        <a
+          class="btn btn-lg btn-plain"
+          [routerLink]="['ProposalLive', {id:proposal?._id}]"
+          target="_blank"
+          *ngIf="formType === 'edit'">
+          View Live
+        </a>
+      </div>
+    </div>
+  </ar-header>
+  <div class="col-sm-12 proposal-details">
+    <form (ngSubmit)="onSubmit()" #proposalForm="ngForm" id="proposalForm">
+      <!-- TITLE -->
+      <div class="row proposal-detail">
+        <div class="col-sm-4">
+          <div class="row-title">title</div>
+        </div>
+        <div class="col-sm-4 proposal-title">
+          <ar-editable-string
+            [name]="'name'" [placeholder]="'Enter a title...'" [text]="proposal?.name"
+            (changed)="proposal.name = $event">
+          </ar-editable-string>
+        </div>
+      </div>
+      <!-- SUBHEAD -->
+      <div class="row proposal-detail">
+        <div class="col-sm-4">
+          <div class="row-title">Subhead</div>
+        </div>
+        <div class="col-sm-4 proposal-subhead">
+          <ar-editable-string
+            [name]="'subhead'" [placeholder]="'Subhead (optional)...'" [text]="proposal?.subhead"
+            (changed)="proposal.subhead = $event">
+          </ar-editable-string>
+        </div>
+      </div>
+      <!-- OVERVIEW -->
+      <div [ngClass]="{'row':true, 'proposal-detail':true, 'toggleable':!proposal?.overview_inactive}">
+        <div class="col-sm-4">
+          <div class="row-title">
+            <a
+              *ngIf="!proposal?.overview_inactive"
+              (click)="proposal.overview_inactive = true"
+              class="icon-deactivate ion-android-close">
+            </a>
+            overview
+          </div>
+        </div>
+        <div class="col-sm-5 paragraph">
+          <ar-toggleable-section [inactive]="proposal?.overview_inactive" (activated)="proposal.overview_inactive = false">
+            <ar-editable-string
+              [name]="'overview'" [text]="proposal?.overview"
+              (changed)="proposal.overview = $event">
+            </ar-editable-string>
+          </ar-toggleable-section>
+        </div>
+      </div>
+      <!-- SCOPE OF WORK -->
+      <div [ngClass]="{'row':true, 'proposal-detail':true, 'toggleable':!proposal?.scope_of_work_inactive}">
+        <div class="col-sm-4">
+          <div class="row-title">
+            <a
+              *ngIf="!proposal?.scope_of_work_inactive"
+              (click)="proposal.scope_of_work_inactive = true"
+              class="icon-deactivate ion-android-close">
+            </a>
+            scope of work
+          </div>
+        </div>
+        <div class="col-sm-5 paragraph">
+          <ar-toggleable-section [inactive]="proposal?.scope_of_work_inactive" (activated)="proposal.scope_of_work_inactive = false">
+            <ar-editable-string
+              [name]="'scope_of_work'" [text]="proposal?.scope_of_work"
+              (changed)="proposal.scope_of_work = $event">
+            </ar-editable-string>
+          </ar-toggleable-section>
+        </div>
+      </div>
+      <!-- STEPS -->
+      <div [ngClass]="{'row':true, 'proposal-detail':true, 'toggleable':!proposal?.steps_inactive}">
+        <div class="col-sm-4">
+          <div class="row-title">
+            <a
+              *ngIf="!proposal?.steps_inactive"
+              (click)="proposal.steps_inactive = true"
+              class="icon-deactivate ion-android-close">
+            </a>
+            Steps
+          </div>
+        </div>
+        <div class="col-sm-5 steps elements paragraph">
+          <ar-toggleable-section [inactive]="proposal?.steps_inactive" (activated)="proposal.steps_inactive = false">
+            <ar-editable-string
+              [placeholder]="'Enter a title for this section'" [name]="'stepsTitle'" [text]="proposal?.steps?.title"
+              (changed)="proposal.steps.title = $event">
+            </ar-editable-string>
+            <ar-editable-string
+              [name]="'steps'" [text]="proposal?.steps?.summary"
+              (changed)="proposal.steps.summary = $event">
+            </ar-editable-string>
+            <ul>
+              <li *ngFor="#step of proposal?.steps?.list; #i = index">
+                <span class="step-number">{{i+1}}</span>
+                <a (click)="removeStep(i)" class="icon-close ion-close-round"></a>
+                <h5>
+                  <ar-editable-string
+                    [placeholder]="'Task Header'" [text]="step?.header" (changed)="proposal.steps.list[i].header = $event">
+                  </ar-editable-string>
+                </h5>
+                <p>
+                  <ar-editable-string
+                    [placeholder]="'Paragraph for the task'" [text]="step?.paragraph" (changed)="proposal.steps.list[i].paragraph = $event">
+                  </ar-editable-string>
+                </p>
+              </li>
+            </ul>
+            <a href class="add-element" (click)="addStep()"><span class="ion-android-add"></span>Add a step</a>
+          </ar-toggleable-section>
+        </div>
+      </div>
+      <!-- TIMELINE -->
+      <div [ngClass]="{'row':true, 'proposal-detail':true, 'toggleable':!proposal?.timeline_inactive}">
+        <div class="col-sm-4">
+          <div class="row-title">
+            <a
+              *ngIf="!proposal?.timeline_inactive"
+              (click)="proposal.timeline_inactive = true"
+              class="icon-deactivate ion-android-close">
+            </a>
+            Timeline
+          </div>
+        </div>
+        <div class="col-sm-5 breakdown elements paragraph">
+          <ar-toggleable-section [inactive]="proposal?.timeline_inactive" (activated)="proposal.timeline_inactive = false">
+            <ar-editable-string
+              [placeholder]="'Enter a title for this section'" [name]="'timelineTitle'" [text]="proposal?.timeline?.title"
+              (changed)="proposal.timeline.title = $event">
+            </ar-editable-string>
+            <ar-editable-string
+              [name]="'timeline'" [text]="proposal?.timeline?.summary"
+              (changed)="proposal.timeline.summary = $event">
+            </ar-editable-string>
+            <div *ngFor="#table of timelineTables; #i = index">
+              <ar-editable-table
+                [title]="table.title" [data]="getTableData(table)"
+                (changed)="updateTimelineTables(i, $event)"
+                (titleChanged)="updateTimelineTableTitle(i, $event)">
+              </ar-editable-table>
+              <button class="btn primary remove-btn btn-mini" (click)="confirmDeleteTable(i, 'timeline')">Remove Table</button>
+            </div>
+            <a href class="add-element" (click)="addTimelineTable()"><span class="ion-android-add"></span>Add New Table</a>
+          </ar-toggleable-section>
+        </div>
+      </div>
+      <!-- ADD SECTIONS -->
+      <div [ngClass]="{'row':true, 'proposal-detail':true, 'toggleable':!proposal?.inserts_inactive}">
+        <div class="col-sm-4">
+          <div class="row-title">
+            <a
+              *ngIf="!proposal?.inserts_inactive"
+              (click)="proposal.inserts_inactive = true"
+              class="icon-deactivate ion-android-close">
+            </a>
+            Inserts
+          </div>
+        </div>
+        <div class="col-sm-5 elements add-sections">
+          <ar-toggleable-section [inactive]="proposal?.inserts_inactive" (activated)="proposal.inserts_inactive = false">
+            <div class="section-block" *ngFor="#element of selectedInserts; #i = index">
+              <div class="insert-title">
+                <ar-editable-string
+                  [text]="element?.title" (changed)="selectedInserts[i].title = $event">
+                </ar-editable-string>
+              </div>
+              <div class="insert-paragraph">
+                <ar-editable-string
+                  [text]="element?.paragraph" (changed)="selectedInserts[i].paragraph = $event">
+                </ar-editable-string>
+              </div>
+              <button class="btn primary remove-btn btn-mini" (click)="confirmDeleteInsert(i)">Remove Section</button>
+            </div>
+            <a href class="add-element" (click)="toggleAddInsertsModal()"><span class="ion-android-add"></span>Add Section</a>
+          </ar-toggleable-section>
+        </div>
+      </div>
+      <!-- TEAM -->
+      <div [ngClass]="{'row':true, 'proposal-detail':true, 'toggleable':!proposal?.candidate_ids_inactive}">
+        <div class="col-sm-4">
+          <div class="row-title">
+            <a
+              *ngIf="!proposal?.candidate_ids_inactive"
+              (click)="proposal.candidate_ids_inactive = true"
+              class="icon-deactivate ion-android-close">
+            </a>
+            team
+          </div>
+        </div>
+        <div class="col-sm-5 elements team">
+          <ar-toggleable-section [inactive]="proposal?.candidate_ids_inactive" (activated)="proposal.candidate_ids_inactive = false">
+            <div class="element-block" *ngFor="#candidate of selectedCandidates">
+              <div class="avatar"><img src="{{candidate?.avatar?.thumbnail}}" alt=""></div>
+              <p>{{candidate.fullname}}</p>
+              <a (click)="removeCandidate(candidate)" class="icon-close ion-close-round"></a>
+            </div>
+            <div class="element-block add-element" (click)="toggleSelectCandidateModal()">
+              <div class="avatar"><span class="ion-android-add"></span></div>
+              <p>Add Team Member</p>
+            </div>
+          </ar-toggleable-section>
+        </div>
+      </div>
+      <!-- BREAKDOWN -->
+      <div [ngClass]="{'row':true, 'proposal-detail':true, 'toggleable':!proposal?.breakdown_inactive}">
+        <div class="col-sm-4">
+          <div class="row-title">
+            <a
+              *ngIf="!proposal?.breakdown_inactive"
+              (click)="proposal.breakdown_inactive = true"
+              class="icon-deactivate ion-android-close">
+            </a>
+            Breakdown
+          </div>
+        </div>
+        <div class="col-sm-5 breakdown elements paragraph">
+          <ar-toggleable-section [inactive]="proposal?.breakdown_inactive" (activated)="proposal.breakdown_inactive = false">
+            <ar-editable-string
+              [placeholder]="'Enter a title for this section'" [name]="'breakdownTitle'" [text]="proposal?.breakdown?.title"
+              (changed)="proposal.breakdown.title = $event">
+            </ar-editable-string>
+            <ar-editable-string
+              [name]="'breakdown'" [text]="proposal?.breakdown?.summary"
+              (changed)="proposal.breakdown.summary = $event">
+            </ar-editable-string>
+            <div *ngFor="#table of breakdownTables; #i = index">
+              <ar-editable-table
+                [title]="table.title" [data]="getTableData(table)"
+                (changed)="updateBreakdownTables(i, $event)"
+                (titleChanged)="updateBreakdownTableTitle(i, $event)">
+              </ar-editable-table>
+              <button class="btn primary remove-btn btn-mini" (click)="confirmDeleteTable(i, 'breakdown')">Remove Table</button>
+            </div>
+            <a href class="add-element" (click)="addBreakdownTable()"><span class="ion-android-add"></span>Add New Table</a>
+          </ar-toggleable-section>
+        </div>
+      </div>
+      <!-- PORTFOLIO -->
+      <div [ngClass]="{'row':true, 'proposal-detail':true, 'toggleable':!proposal?.portfolio_ids_inactive}">
+        <div class="col-sm-4">
+          <div class="row-title">
+            <a
+              *ngIf="!proposal?.portfolio_ids_inactive"
+              (click)="proposal.portfolio_ids_inactive = true"
+              class="icon-deactivate ion-android-close">
+            </a>
+            Portfolio
+          </div>
+        </div>
+        <div class="col-sm-5 portfolio elements">
+          <ar-toggleable-section [inactive]="proposal?.portfolio_ids_inactive" (activated)="proposal.portfolio_ids_inactive = false">
+            <div class="element-block" *ngFor="#sample of selectedSamples">
+              <div class="sample"><img src="{{sample?.image}}" alt=""></div>
+              <p>{{sample.title}}</p>
+              <a (click)="removeSample(sample)" class="icon-close ion-close-round"></a>
+            </div>
+            <div class="element-block add-element" (click)="toggleSelectPortfolioModal()">
+              <p>Add Portfolio Piece</p>
+            </div>
+          </ar-toggleable-section>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- CANDIDATE MODAL -->
+  <ar-select-candidate-modal
+    [candidates]="candidates" [showModal]="showSelectCandidateModal" [selectedCandidates]="selectedCandidates"
+    (selectionFinished)="updateSelectedCandidates($event)" (closed)="toggleSelectCandidateModal()">
+  </ar-select-candidate-modal>
+  <ar-add-portfolio-modal
+    [showModal]="showSelectPortfolioModal" [selectedSamples]="selectedSamples"
+    (selectionFinished)="updateSelectedSamples($event)" (closed)="toggleSelectPortfolioModal()">
+  </ar-add-portfolio-modal>
+  <ar-add-insert-modal
+    [showModal]="showAddInsertModal"
+    (insertAdded)="addInsert($event)" (closed)="toggleAddInsertsModal()">
+  </ar-add-insert-modal>
+  <!-- CONFIRM MODAL -->
+  <ar-confirmation-modal
+    [showModal]="showConfirmModal"
+    [message]="'Are you sure you wanna delete this table?'"
+    [positiveLabel]="'Yes'"
+    (closed)="confirmDeleteTableAction($event)">
+  </ar-confirmation-modal>
+  <!-- CONFIRM MODAL TO DELETE PROPOSAL-->
+  <ar-confirmation-modal
+    [showModal]="showProposalDeleteConfirmModal"
+    [message]="'Are you sure you want to delete this proposal?'"
+    [cancelLabel]="'No'"
+    [positiveLabel]="'Yes'"
+    (closed)="confirmDeleteProposalAction($event)">
+  </ar-confirmation-modal>
+  <!-- CONFIRM MODAL TO DELETE INSERT-->
+  <ar-confirmation-modal
+    [showModal]="showDeleteInsertConfirmModal"
+    [message]="'Are you sure you want to delete this section?'"
+    [cancelLabel]="'No'"
+    [positiveLabel]="'Yes'"
+    (closed)="confirmDeleteInsertAction($event)">
+  </ar-confirmation-modal>
+  <!-- CONFIRM EXIT PAGE -->
+  <ar-confirmation-modal
+    [showModal]="showPageExitConfirmModal"
+    [message]="'Are you sure you want to exit this page?'"
+    [cancelLabel]="'No'"
+    [positiveLabel]="'Yes'"
+    (closed)="confirmExitPage($event)">
+  </ar-confirmation-modal>
+
+</div>
